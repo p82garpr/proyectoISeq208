@@ -2,13 +2,15 @@
  * curso.cpp
  *
  *  Created on: 29 nov 2022
- *      Author: Isaac
+ *      Author: Rafa
  */
 
 #include "curso.h"
-#include <mysql.h>
 
-curso::curso(string id_curso, string nombre, string fecha_ini, string fecha_fin, string descripcion, float estadistica_alcance, int alumnos_inscritos) {
+
+
+//#include "C:\Program Files\MySQL\MySQL Server 8.0\include\mysql.h"
+curso::curso(int id_curso, string nombre, string fecha_ini, string fecha_fin, string descripcion, float estadistica_alcance, int alumnos_inscritos) {
 	id_curso_=id_curso;
 	nombre_=nombre;
 	fecha_ini_=fecha_ini;
