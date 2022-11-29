@@ -25,6 +25,7 @@ public:
 	curso(string id_curso, string nombre="empty", string fecha_ini="00/00/00", string fecha_fin="00/00/00", string descripcion="empty", float estadistica_alcance=0.0, int alumnos_inscritos=0);
 	virtual ~curso();
 
+	//GETTERS Y SETTERS
 	inline int getAlumnosInscritos() const {return alumnos_inscritos_;}
 
 	inline void setAlumnosInscritos(int alumnosInscritos) {alumnos_inscritos_ = alumnosInscritos;}
@@ -52,6 +53,10 @@ public:
 	inline const string& getNombre() const {return nombre_;}
 
 	inline void setNombre(const string &nombre) {nombre_ = nombre;}
+
+	void mostrar_informacion(int id_curso);
+
+
 };
 
 #endif /* CURSO_H_ */

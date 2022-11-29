@@ -6,6 +6,7 @@
  */
 
 #include "curso.h"
+#include <mysql.h>
 
 curso::curso(string id_curso, string nombre, string fecha_ini, string fecha_fin, string descripcion, float estadistica_alcance, int alumnos_inscritos) {
 	id_curso_=id_curso;
@@ -14,6 +15,12 @@ curso::curso(string id_curso, string nombre, string fecha_ini, string fecha_fin,
 	descripcion_=descripcion;
 	estadistica_alcance_=estadistica_alcance;
 	alumnos_inscritos_=alumnos_inscritos;
+
+}
+
+void curso::mostrar_informacion(int id_curso){
+	//select * from curso where id=id_curso
+
 
 }
 
