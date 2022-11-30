@@ -7,15 +7,28 @@
 //============================================================================
 
 #include <iostream>
+#include <string>
+#include "usuario.h"
 #include "curso.h"
-
 using namespace std;
 
 int main() {
-	curso c(5);
-
-	//cout<<c.getIdCurso();
-
+	//PARA CONSTRUIR USUARIO NOMBRE FECHA DNI CONTRASEÑA
 	//cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
-	return 0;
+	string user,pass;
+	usuario u("p82","Rafa Garcia Perez","Rafa","3188","puta");
+	cout<<u.getContrasena()<<endl;
+	cout<<"Introduce nombre para inicio de sesion: "<<endl;
+	cin>>user;
+	cout<<"introduce contrasenia: "<<endl;
+	cin>>pass;
+	if(u.iniciar_sesion(user,pass)){
+		cout<<"Contaseña correcta"<<endl;
+		exit(EXIT_SUCCESS);
+	}else{
+		cout<<"Contraseña incorrecta"<<endl;
+		exit(EXIT_FAILURE);
+	}
+	//cout<<"holis"<< endl;
+	curso c(5);
 }
