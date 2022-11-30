@@ -29,49 +29,27 @@ public:
 
 	//GETTERS Y SETTERS
 
-	inline const string& getContrasena() const {
-		return contrasena_;
-	}
+	inline const string& getContrasena() const { return contrasena_;}
 
-	inline void setContrasena(const string &contrasena) {
-		contrasena_ = contrasena;
-	}
+	inline void setContrasena(const string &contrasena) {contrasena_ = contrasena;}
 
-	inline const string& getDni() const {
-		return dni_;
-	}
+	inline const string& getDni() const {return dni_;}
 
-	inline void setDni(const string &dni) {
-		dni_ = dni;
-	}
+	inline void setDni(const string &dni) {	dni_ = dni;}
 
-	inline const string& getFechaNacimiento() const {
-		return fecha_nacimiento_;
-	}
+	inline const string& getFechaNacimiento() const {return fecha_nacimiento_;}
 
-	inline void setFechaNacimiento(const string &fechaNacimiento) {
-		fecha_nacimiento_ = fechaNacimiento;
-	}
+	inline void setFechaNacimiento(const string &fechaNacimiento) {fecha_nacimiento_ = fechaNacimiento;}
 
-	inline const string& getNombreCompleto() const {
-		return nombre_completo_;
-	}
+	inline const string& getNombreCompleto() const {return nombre_completo_;}
 
-	inline void setNombreCompleto(const string &nombreCompleto) {
-		nombre_completo_ = nombreCompleto;
-	}
+	inline void setNombreCompleto(const string &nombreCompleto) {nombre_completo_ = nombreCompleto;}
 
-	inline const string& getUsuarioUco() const {
-		return usuario_uco_;
-	}
+	inline const string& getUsuarioUco() const {return usuario_uco_;}
 
-	inline void setUsuarioUco(const string &usuarioUco) {
-		usuario_uco_ = usuarioUco;
-	}
+	inline void setUsuarioUco(const string &usuarioUco) {usuario_uco_ = usuarioUco;}
 
 	void iniciar_sesion();
-
-
 };
 
 #endif /* USUARIO_H_ */

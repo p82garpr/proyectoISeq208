@@ -16,15 +16,11 @@ usuario::usuario(string usuario_uco,
 		string dni,
 		string contrasena) {
 	usuario_uco_=usuario_uco;
+	nombre_completo_=nombre_completo;
 	fecha_nacimiento_=fecha_nacimiento;
 	dni_=dni;
 	contrasena_=contrasena;
 
-}
-
-
-usuario::~usuario() {
-	// TODO Auto-generated destructor stub
 }
 
 
