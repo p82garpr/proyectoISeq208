@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include "usuario.h"
+#include "curso.h"
 using namespace std;
 
 int main() {
@@ -29,5 +30,5 @@ int main() {
 		exit(EXIT_FAILURE);
 	}
 	//cout<<"holis"<< endl;
-	return 0;
+	curso c(5);
 }
