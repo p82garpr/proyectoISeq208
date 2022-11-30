@@ -22,13 +22,16 @@ usuario::usuario(string usuario_uco,
 	contrasena_=contrasena;
 
 }
-bool usuario::iniciar_sesion(string DNI, string pass){
-	if(DNI==dni_ && pass=contrasena_){
+bool usuario::iniciar_sesion(string id, string pass){
+	if((id==dni_ || id==usuario_uco_ ) && pass==contrasena_){
 		return true;
 	}else{
 		return false;
 	}
 }
+
+
+/*
 bool usuario::iniciar_sesion(string usuario, string pass){
 	if(usuario==usuario_uco_ && pass=contrasena_){
 		return true;
@@ -36,7 +39,7 @@ bool usuario::iniciar_sesion(string usuario, string pass){
 		return false;
 	}
 }
-
+*/
 
 
 

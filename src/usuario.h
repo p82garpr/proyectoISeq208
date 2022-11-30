@@ -50,8 +50,8 @@ public:
 	inline void setUsuarioUco(const string &usuarioUco) {usuario_uco_ = usuarioUco;}
 
 	//void iniciar_sesion();
-	bool iniciar_sesion(string DNI, string pass);
-	bool iniciar_sesion(string usuario, string pass);
+	bool iniciar_sesion(string id, string pass);
+	//bool iniciar_sesion(string usuario, string pass);
 };
 
 #endif /* USUARIO_H_ */
