@@ -7,6 +7,7 @@
 
 #ifndef CURSO_H_
 #define CURSO_H_
+#define CHAR_SIZE 50
 #include <iostream>
 #include <string>
 using namespace std;
@@ -24,10 +25,11 @@ private:
 public:
 
 
-	curso(int id_curso, string nombre="empty", string fecha_ini="00/00/00", string fecha_fin="00/00/00", string descripcion="empty", float estadistica_alcance=0.0,int aforo=100, int alumnos_inscritos=0);
+	curso(int id_curso=0, string nombre="empty", string fecha_ini="00/00/00", string fecha_fin="00/00/00", string descripcion="empty", float estadistica_alcance=0.0,int aforo=100, int alumnos_inscritos=0);
 	virtual ~curso();
 
 	//GETTERS Y SETTERS
+	inline void setId(int id){id_curso_=id;}
 	inline int getAlumnosInscritos() const {return alumnos_inscritos_;}
 
 	inline void setAlumnosInscritos(int alumnosInscritos) {alumnos_inscritos_ = alumnosInscritos;}
@@ -72,7 +74,7 @@ public:
 
 int getInt(string msj);
 string getString(string msj);
-
+void limpiarLinea();
 
 
 

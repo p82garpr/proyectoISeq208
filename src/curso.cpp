@@ -5,22 +5,13 @@
  *      Author: Rafa
  */
 
-
-#ifdef _WIN32
-#define CLEAR "cls"
-#elif defined(unix)||defined(__unix__)||defined(__unix)||defined(__APPLE__)||defined(__MACH__)
-#define CLEAR "clear"
-#else
-#error "SO no soportado para limpiar pantalla"
-#endif
-
-
 #include "curso.h"
 #include <fstream>
 #include <iomanip>
 #include <cstdlib>
-#include <cstring>
+#include <string>
 #include <errno.h>
+#include <stdio.h>
 using namespace std;
 
 
@@ -30,10 +21,19 @@ void curso::mostrar(curso c){
 	cout<<"Fecha ini----------:"<<c.fecha_ini_<<endl;
 	cout<<"Fecha fin----------:"<<c.fecha_fin_<<endl;
 	cout<<"Descripcion----------:"<<c.descripcion_<<endl;
+	cout<<"Alcance----------:"<<c.estadistica_alcance_<<endl;
 	cout<<"Aforo----------:"<<c.aforo_<<endl;
+	cout<<"N inscritos----------:"<<c.alumnos_inscritos_<<endl;
 	cout<<"___________________________________________"<<endl;
 }
 
+
+void limpiarLinea(){
+	int ch;
+	while((ch= fgetc(stdin))!= EOF){
+		if(ch == '\n') break;
+	}
+}
 
 int getInt(string msj){
 	int n;
@@ -155,61 +155,111 @@ curso curso::getCurso(int id){
 
 void curso::agregarCurso(){
 	int idd,aforo;
-	char nombre[50];
+	/*char nombre[50];
 	char fecha_ini[12];
 	char fecha_fin[12];
-	char desc[200];
+	char desc[200];*/
+
+
+	string nombre;
+	string fecha_ini;
+	string fecha_fin;
+	string desc;
+
 	//cin.ignore();
 	idd=getInt("Introduce ID del curso: ");
-	curso aux(idd);
+	curso aux;
 	//cout<<"Introduce el nombre del curso: ";
-	fflush(stdin);
+	//fflush(stdin);
+	/*
 	strcpy(nombre,getString("Introduce el nombre del curso: ").c_str());
 	strcpy(fecha_ini,getString("Introduce la fecha de inicio del curso: ").c_str());
 	strcpy(fecha_fin,getString("Introduce la fecha de fin del curso ").c_str());
 	strcpy(desc,getString("Introduce la descripcion del cruso:  ").c_str());
+	*/
+	aux.setId(idd);
+	cin.ignore();
+	cout<<"\n Introduce el nombre del curso: ";
+	//fflush(stdin);
+	//cin.ignore();
+	//limpiarLinea();
+	getline(cin,nombre);
+	cout<<"\n Introduce la fecha de inicio del curso: ";
+	//fflush(stdin);
+	//cin.ignore();
+	//limpiarLinea();
+	getline(cin,fecha_ini);
+	cout<<"\n Introduce la fecha de fin del curso: ";
+	//fflush(stdin);
+	//cin.ignore();
+	//limpiarLinea();
+	getline(cin,fecha_fin);
+	cout<<"\n Introduce la descripcion del cruso: ";
+	//fflush(stdin);
+	//cin.ignore();
+	//limpiarLinea();
+	getline(cin,desc);
 
 	aforo=getInt("Introduce el aforo del curso: ");
-	//aux.setIdCurso(idd);
 	aux.setNombre(nombre);
-	aux.setFechaIni(fecha_ini);
+	aux.setFechaIni("12-12-12");
 	aux.setFechaFin(fecha_fin);
+	aux.setDescripcion(desc);
 	aux.setAforo(aforo);
+	aux.setEstadisticaAlcance(0.0);
+	aux.setAlumnosInscritos(0);
+	//mostrar(aux);
+	fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
+	e.seekp(0,ios::end);
+	e.write((char*)&aux,sizeof(curso));
+	e.close();
+
+	/*
 	curso auxx = getCurso(aux.id_curso_);
 	//if(auxx.id_curso_!=0){
 		//cout<<"El registro ya existe!!"<<endl;
 	//}else{
 		fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
 		if(e.is_open()){
-			cout<<"HOLAAAA";
-			e.seekp(((aux.id_curso_)-1)*sizeof(curso));
+			//cout<<"HOLAAAA";
+			//e.seekp(((aux.id_curso_)-1)*sizeof(curso));
+			e.seekp(0,ios::end);
 			e.write((char*)&aux,sizeof(curso));
 			e.close();
 		}else{
 			cout<<"Error"<<strerror(errno);
 		}
 	//}
+	 */
 }
 
 void curso::listarCursos(){
+	//fstream e("Cursos.txt", fstream::in | fstream::binary);
 	fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
-	curso aux(0);
+	curso aux;
+	//e.seek(0,ios::)
+
 	if(e.is_open()){
 		e.read((char *)&aux, sizeof(curso));
 		while(!e.eof()){
-			if(aux.id_curso_ !=0){
 			mostrar(aux);
-			}
 			e.read((char *)&aux, sizeof(curso));
 			}
-			e.close();
 		}
+
+	/*
+	e.read((char *)&aux.id_curso_, sizeof(aux.id_curso_));
+	e.read((char *)&aux.nombre_, sizeof(aux.nombre_));
+	e.read((char *)&aux.fecha_ini_, sizeof(aux.fecha_ini_));
+	e.read((char *)&aux.fecha_fin_, sizeof(aux.fecha_fin_));
+	e.read((char *)&aux.descripcion_, sizeof(aux.descripcion_));
+	e.read((char *)&aux.estadistica_alcance_, sizeof(aux.estadistica_alcance_));
+	e.read((char *)&aux.aforo_, sizeof(aux.aforo_));
+	e.read((char *)&aux.alumnos_inscritos_, sizeof(aux.alumnos_inscritos_));*/
+	//e.read((char *)&aux, sizeof(curso));
+	//mostrar(aux);
+	e.close();
 }
-
-
-
-
-
 
 curso::~curso() {
 	// TODO Auto-generated destructor stub
