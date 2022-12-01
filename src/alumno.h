@@ -25,7 +25,8 @@ class alumno: public usuario{
 				string dni,
 				string contrasena,
 				list <string> lista_cursos={}):usuario(usuario_uco,nombre_completo,fecha_nacimiento,dni,contrasena){lista_cursos_=lista_cursos;}
-		virtual ~alumno();
+		//virtual ~alumno();
+		void listar_cursos();
 		void registro();
 		void inscribir_curso();
 };

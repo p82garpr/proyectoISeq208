@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <string>
+#include <list>
 #include "usuario.h"
 #include "curso.h"
 #include "alumno.h"
@@ -17,8 +18,10 @@ int main() {
 	//PARA CONSTRUIR USUARIO NOMBRE FECHA DNI CONTRASEÑA
 	//cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
 	string user,pass;
-	usuario u("p82","Rafa Garcia Perez","Rafa","3188","puta");
+	list <string> lista={"curso1","curso2"};
+	alumno u("p82","Rafa Garcia Perez","Rafa","3188","puta",lista);
 	cout<<u.getContrasena()<<endl;
+	u.listar_cursos();
 	cout<<"Introduce nombre para inicio de sesion: "<<endl;
 	cin>>user;
 	cout<<"introduce contrasenia: "<<endl;
