@@ -17,7 +17,7 @@ using namespace std;
 int main() {
 	//PARA CONSTRUIR USUARIO NOMBRE FECHA DNI CONTRASEÑA
 	//cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
-	string user,pass;
+	/*string user,pass;
 	list <string> lista={"curso1","curso2"};
 	alumno u("p82","Rafa Garcia Perez","Rafa","3188","puta",lista);
 	cout<<u.getContrasena()<<endl;
@@ -34,5 +34,12 @@ int main() {
 		exit(EXIT_FAILURE);
 	}
 	//cout<<"holis"<< endl;
-	curso c(5);
+
+	*/
+	curso c(0);
+	//c.agregarCurso();
+	c.listarCursos();
+
+
+
 }

@@ -8,6 +8,7 @@
 #ifndef CURSO_H_
 #define CURSO_H_
 #include <iostream>
+#include <string>
 using namespace std;
 
 class curso {
@@ -18,11 +19,12 @@ private:
 	string fecha_fin_;
 	string descripcion_;
 	float estadistica_alcance_;
+	int aforo_;
 	int alumnos_inscritos_;
 public:
 
 
-	curso(int id_curso, string nombre="empty", string fecha_ini="00/00/00", string fecha_fin="00/00/00", string descripcion="empty", float estadistica_alcance=0.0, int alumnos_inscritos=0);
+	curso(int id_curso, string nombre="empty", string fecha_ini="00/00/00", string fecha_fin="00/00/00", string descripcion="empty", float estadistica_alcance=0.0,int aforo=100, int alumnos_inscritos=0);
 	virtual ~curso();
 
 	//GETTERS Y SETTERS
@@ -54,9 +56,24 @@ public:
 
 	inline void setNombre(const string &nombre) {nombre_ = nombre;}
 
+	inline void setAforo(int aforo){aforo_=aforo;}
+	inline int getAforo(){return aforo_;}
+	curso getCurso(int id);
+
 	void mostrar_informacion(int id_curso);
+
+	//void volcar_curso();
+	void agregarCurso();
+	void mostrar(curso c);
+	void listarCursos();
 
 
 };
+
+int getInt(string msj);
+string getString(string msj);
+
+
+
 
 #endif /* CURSO_H_ */
