@@ -37,7 +37,7 @@ int main() {
 
 	*/
 	curso c(0);
-	//c.agregarCurso();
+	c.agregarCurso();
 	c.listarCursos();
 
 

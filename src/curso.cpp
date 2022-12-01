@@ -199,7 +199,7 @@ void curso::agregarCurso(){
 	//cin.ignore();
 	//limpiarLinea();
 	getline(cin,desc);
-
+	nombre=nombre.c_str();
 	aforo=getInt("Introduce el aforo del curso: ");
 	aux.setNombre(nombre);
 	aux.setFechaIni("12-12-12");
@@ -208,9 +208,11 @@ void curso::agregarCurso(){
 	aux.setAforo(aforo);
 	aux.setEstadisticaAlcance(0.0);
 	aux.setAlumnosInscritos(0);
+	//curso c(1,"aa","aa","aaa","asdas",0.0,1,1);
 	//mostrar(aux);
 	fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
 	e.seekp(0,ios::end);
+	mostrar(aux);
 	e.write((char*)&aux,sizeof(curso));
 	e.close();
 
@@ -238,27 +240,31 @@ void curso::listarCursos(){
 	fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
 	curso aux;
 	//e.seek(0,ios::)
-
+/*
 	if(e.is_open()){
 		e.read((char *)&aux, sizeof(curso));
 		while(!e.eof()){
 			mostrar(aux);
 			e.read((char *)&aux, sizeof(curso));
 			}
+		e.close();
 		}
-
-	/*
-	e.read((char *)&aux.id_curso_, sizeof(aux.id_curso_));
-	e.read((char *)&aux.nombre_, sizeof(aux.nombre_));
-	e.read((char *)&aux.fecha_ini_, sizeof(aux.fecha_ini_));
-	e.read((char *)&aux.fecha_fin_, sizeof(aux.fecha_fin_));
-	e.read((char *)&aux.descripcion_, sizeof(aux.descripcion_));
-	e.read((char *)&aux.estadistica_alcance_, sizeof(aux.estadistica_alcance_));
-	e.read((char *)&aux.aforo_, sizeof(aux.aforo_));
-	e.read((char *)&aux.alumnos_inscritos_, sizeof(aux.alumnos_inscritos_));*/
-	//e.read((char *)&aux, sizeof(curso));
-	//mostrar(aux);
+*/
+	e.read((char *)&aux, sizeof(curso));
+	mostrar(aux);
 	e.close();
+
+
+	//e.read((char *)&aux.id_curso_, sizeof(aux.id_curso_));
+	//e.read((char *)&aux.nombre_, sizeof(aux.nombre_));
+	//e.read((char *)&aux.fecha_ini_, sizeof(aux.fecha_ini_));
+	//e.read((char *)&aux.fecha_fin_, sizeof(aux.fecha_fin_));
+	//e.read((char *)&aux.descripcion_, sizeof(aux.descripcion_));
+	//e.read((char *)&aux.estadistica_alcance_, sizeof(aux.estadistica_alcance_));
+	//e.read((char *)&aux.aforo_, sizeof(aux.aforo_));
+	//e.read((char *)&aux.alumnos_inscritos_, sizeof(aux.alumnos_inscritos_));
+	//e.read((char *)&aux, sizeof(curso));
+
 }
 
 curso::~curso() {
