@@ -10,6 +10,7 @@
 #include <string>
 #include "usuario.h"
 #include "curso.h"
+#include "alumno.h"
 using namespace std;
 
 int main() {

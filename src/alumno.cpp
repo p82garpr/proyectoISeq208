@@ -1,18 +1,18 @@
 /*
- * Usuario.cpp
+ * alumno.cpp
  *
  *  Created on: 30 nov 2022
  *      Author: rafag
  */
 
-#include "Usuario.h"
-
-Usuario::Usuario() {
+#include "alumno.h"
+/*
+alumno::alumno() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Usuario::~Usuario() {
+alumno::~alumno() {
 	// TODO Auto-generated destructor stub
 }
-
+*/
