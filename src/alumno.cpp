@@ -165,8 +165,8 @@ bool alumno::inicio_sesion_bbdd(){
 			getline(read,usuarioUCO);
 			getline(read,pass);
 			getline(read,aux);
-			cout<<"EL DNI DEL FICHERO ES...:"<<dni<<endl;
-			cout<<"LA PASS DEL FICHERO ES...:"<<pass<<endl;
+			//cout<<"EL DNI DEL FICHERO ES...:"<<dni<<endl;
+			//cout<<"LA PASS DEL FICHERO ES...:"<<pass<<endl;
 			if(dni==auxDNI){
 				encontrado=true;
 				if(pass!=passAux){
@@ -177,11 +177,16 @@ bool alumno::inicio_sesion_bbdd(){
 					cout<<"Contrasenia validada, bienvenido "<<usuarioUCO<<endl;
 					read.close();
 					return 1;
-				}
+					}
 			}
+			getline(read,dni);
 		}
+		if(read.eof()&&auxDNI!=dni){
+		            encontrado=false;
+		        }
+
 		cout<<"El DNI introtucido no tiene una cuenta en nuestra base de datos, saliendo..."<<endl;
-	}while(encontrado==false);
+	}while(encontrado==true);
 
 	read.close();
 	return 0;

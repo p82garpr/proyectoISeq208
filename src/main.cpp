@@ -43,6 +43,7 @@ int main() {
 	//c.listarCursos();
 	int opc;
 	do{
+		system("cls");
 		cout<<"ELIGE UNA OPCION\n";
 		cout<<"0. Salir \n\n";
 		cout<<"1. Agregar curso\n\n";
