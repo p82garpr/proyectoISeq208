@@ -115,7 +115,13 @@ void curso::volcar_curso(){
 				if(id==auxID){
 					encontrado=true;
 					cout<<"YA EXISTE UN CURSO CON ESE CODIGO \n";
-					break;
+					//cout<<"Introduce un código válido"<<endl;
+					//getline(cin,id);
+					//break;
+
+					cout<<"saliendo..."<<endl; //ENTRA EN BUCLE CUANDO PIDO OTRO
+					return;
+
 				}
 				getline(verificador,id);
 			}
@@ -162,7 +168,7 @@ void curso::volcar_curso(){
 
 // 00:24
 
-
+/*
 curso curso::getCurso(int id){
 	fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
 	curso aux(id);
@@ -173,32 +179,18 @@ curso curso::getCurso(int id){
 	}
 	return aux;
 }
-
+*/
 
 void curso::agregarCurso(){
 	int idd,aforo;
-	/*char nombre[50];
-	char fecha_ini[12];
-	char fecha_fin[12];
-	char desc[200];*/
-
-
 	string nombre;
 	string fecha_ini;
 	string fecha_fin;
 	string desc;
 
-	//cin.ignore();
+
 	idd=getInt("Introduce ID del curso: ");
 	curso aux;
-	//cout<<"Introduce el nombre del curso: ";
-	//fflush(stdin);
-	/*
-	strcpy(nombre,getString("Introduce el nombre del curso: ").c_str());
-	strcpy(fecha_ini,getString("Introduce la fecha de inicio del curso: ").c_str());
-	strcpy(fecha_fin,getString("Introduce la fecha de fin del curso ").c_str());
-	strcpy(desc,getString("Introduce la descripcion del cruso:  ").c_str());
-	*/
 	aux.setId(idd);
 	cin.ignore();
 	cout<<"\n Introduce el nombre del curso: ";
@@ -245,8 +237,8 @@ void curso::agregarCurso(){
 
 void curso::listarCursos(){
 	//fstream e("Cursos.txt", fstream::in | fstream::binary);
-	fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
-	curso aux;
+	//fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
+	//curso aux;
 	//e.seek(0,ios::)
 /*
 	if(e.is_open()){
@@ -258,20 +250,50 @@ void curso::listarCursos(){
 		e.close();
 		}
 */
-	e.read((char *)&aux, sizeof(curso));
-	mostrar(aux);
-	e.close();
-
-
-	//e.read((char *)&aux.id_curso_, sizeof(aux.id_curso_));
-	//e.read((char *)&aux.nombre_, sizeof(aux.nombre_));
-	//e.read((char *)&aux.fecha_ini_, sizeof(aux.fecha_ini_));
-	//e.read((char *)&aux.fecha_fin_, sizeof(aux.fecha_fin_));
-	//e.read((char *)&aux.descripcion_, sizeof(aux.descripcion_));
-	//e.read((char *)&aux.estadistica_alcance_, sizeof(aux.estadistica_alcance_));
-	//e.read((char *)&aux.aforo_, sizeof(aux.aforo_));
-	//e.read((char *)&aux.alumnos_inscritos_, sizeof(aux.alumnos_inscritos_));
 	//e.read((char *)&aux, sizeof(curso));
+	//mostrar(aux);
+	//e.close();
+	//TODO LO ANTERIOR ES EL INTENTO CON BINARIOS (FUTURA MEJORA JUNTO CON BBDD
+	curso CAux;
+	int i=0;
+	string vacio;
+	vacio.clear();
+	string aux;
+	ifstream read;
+	read.open("Cursos.txt",ios::in);
+			if(read.is_open()){
+				cout<<"\t\t***LISTADO DE TODOS LOS CURSOS DISPONIBLES***\t\t\n";
+				getline(read,aux);
+				id_curso_=stoi(aux);
+				while(!read.eof()){
+					i++;
+
+					getline(read,nombre_);
+					getline(read,fecha_ini_);
+					getline(read,fecha_fin_);
+					getline(read,descripcion_);
+					getline(read,aux);
+					estadistica_alcance_=stof(aux);
+					getline(read,aux);
+					aforo_=stoi(aux);
+					getline(read,aux);
+					alumnos_inscritos_=stoi(aux);
+					CAux.mostrar(*this);
+					cout<<"\n\n";
+					aux.clear();
+					getline(read,aux);
+					if(aux==vacio){
+						break;
+					}
+					//cout<<"LO QUE TIENE AUX ES: "<<aux<<endl;
+					id_curso_=stoi(aux);
+				}
+
+			}
+
+			read.close();
+			cout<<"Hay uin total de "<<i<<" cursos"<<endl;
+
 
 }
 

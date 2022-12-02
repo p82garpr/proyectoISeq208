@@ -37,9 +37,28 @@ int main() {
 
 	*/
 	curso c(0);
-	c.volcar_curso();
+	//c.volcar_curso();
 	//c.agregarCurso();
 	//c.listarCursos();
+	int opc;
+	do{
+		cout<<"ELIGE UNA OPCION\n";
+		cout<<"0. Salir \n\n";
+		cout<<"1. Agregar curso\n\n";
+		cout<<"2. Listar cursos\n\n";
+		cin>>opc;
+		switch(opc){
+		case 0:
+			break;
+		case 1:
+			fflush(stdin);
+			c.volcar_curso();
+			break;
+		case 2:
+			c.listarCursos();
+		}
+
+	}while(opc!=0);
 
 
 
