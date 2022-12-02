@@ -8,6 +8,7 @@
 #include "alumno.h"
 #include <list>
 #include <string>
+#include <fstream>
 
 
 void alumno::listar_cursos(){
@@ -17,11 +18,178 @@ void alumno::listar_cursos(){
 	}
 }
 
+void alumno::registro(){
+
+	ofstream escritura;
+	ifstream verificador;
+
+	bool encontrado=false;
+	string usuarioUCO;
+	string nombre;
+	string fechaNac;
+	string dni;
+	string pass;
+	string pass2;
+	string CURSOS;
+
+	/*
+	 * LA FORMA DE GUARDAR LOS REGISTROS ES:
+	 * 			DNI
+	 * 			NOMBRE COMPLETO
+	 * 			FECHA NAC
+	 * 			USUARIO UCO
+	 * 			CONTRASEÑA
+	 *			¿CURSOS REGISTRADOS?
+	 */
+
+
+	verificador.open("AlumnosRegistrados.txt",ios::in);
+	escritura.open("AlumnosRegistrados.txt",ios::app);
+
+	if(escritura.is_open() && verificador.is_open()){
+		cout<<"\t ***Registro de usuario ***\t\n\n";
+		//fflush(stdin);
+		cout<<"Ingresa dni : ";
+		getline(cin,dni);
+		string auxID=dni;
+		cout<<endl;
+		do{
+			verificador.seekg(0);
+			getline(verificador,dni);
+			while(!verificador.eof())
+			{
+				//getline(verificador,usuarioUCO);
+				getline(verificador,nombre);
+				getline(verificador,fechaNac);
+				getline(verificador,usuarioUCO);
+				getline(verificador,pass);
+				getline(verificador,CURSOS); //LISTA DE CURSOS
+				//getline(verificador,inscrr);
+				if(dni==auxID){
+					encontrado=true;
+					cout<<"YA EXISTE UN USUARIO CON ESE DNI \n";
+					//cout<<"Introduce un código válido"<<endl;
+					//getline(cin,id);
+					//break;
+
+					cout<<"saliendo..."<<endl; //ENTRA EN BUCLE CUANDO PIDO OTRO
+					return;
+
+				}
+				getline(verificador,dni);
+			}
+			if(verificador.eof()&&auxID!=dni){
+				encontrado=false;
+			}
+		}while(encontrado==true);
+		dni=auxID;
+		//fflush(stdin);
+		cout<<"Ingresa el nombre de usuario UCO: ";
+		getline(cin,usuarioUCO);
+		cout<<endl;
+
+		cout<<"Ingresa el nombre completo: ";
+		getline(cin,nombre);
+		cout<<endl;
+
+		//fflush(stdin);
+		cout<<"Ingresa la fecha de nacimiento: ";
+		getline(cin,fechaNac);
+		cout<<endl;
+
+		//fflush(stdin);
+		/*
+		cout<<"Ingresa el DNI: ";
+		getline(cin,dni);
+		cout<<endl;*/
+
+		//fflush(stdin);
+		cout<<"Introduce una contrasena: ";
+		getline(cin,pass);
+		cout<<endl;
+		cout<<"Introduce de nuevo una contrasena: ";
+		getline(cin,pass2);
+		cout<<endl;
+		if(pass!=pass2){
+			do{
+				cout<<"Las contrasenas no coinciden, insertela de nuevo: "<<endl;
+				getline(cin,pass2);
+			}while(pass!=pass2);
+		}
+
+
+		//fflush(stdin);
+		escritura<<dni<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n"<<"cursos"<<"\n";
+
+	}
+	//cout<<id<<endl;
+	cout<<"Se ha añadido correctamente el curso"<<endl;
+	escritura.close();
+	verificador.close();
+}
+
+bool alumno::inicio_sesion_bbdd(){
+
+	bool encontrado=false;
+	string dni;
+	string pass;
+
+	string aux;
+	string usuarioUCO;
+	cout<<"Introduce DNI: ";
+	getline(cin,dni);
+	string auxDNI=dni;
+	cout<<"Introduce contrasenia: ";
+	getline(cin,pass);
+	string passAux=pass;
+	ifstream read;
+	read.open("AlumnosRegistrados.txt",ios::in);
+	cout<<endl;
+
+	do{
+		read.seekg(0);
+		getline(read,dni);
+		while(!read.eof())
+		{
+			/*
+			 * LA FORMA DE GUARDAR LOS REGISTROS ES:
+			 * 			DNI
+			 * 			NOMBRE COMPLETO
+			 * 			FECHA NAC
+			 * 			USUARIO UCO
+			 * 			CONTRASEÑA
+			 *			¿CURSOS REGISTRADOS?
+			 */
+			getline(read,aux);
+			getline(read,aux);
+			getline(read,usuarioUCO);
+			getline(read,pass);
+			getline(read,aux);
+			cout<<"EL DNI DEL FICHERO ES...:"<<dni<<endl;
+			cout<<"LA PASS DEL FICHERO ES...:"<<pass<<endl;
+			if(dni==auxDNI){
+				encontrado=true;
+				if(pass!=passAux){
+					cout<<"Contrasenia Incorrecta, saliendo.."<<endl;
+					read.close();
+					return 0;
+				}else{
+					cout<<"Contrasenia validada, bienvenido "<<usuarioUCO<<endl;
+					read.close();
+					return 1;
+				}
+			}
+		}
+		cout<<"El DNI introtucido no tiene una cuenta en nuestra base de datos, saliendo..."<<endl;
+	}while(encontrado==false);
+
+	read.close();
+	return 0;
+}
 
 /*
 alumno::alumno() {
 	// TODO Auto-generated constructor stub
-
 }
 
 alumno::~alumno() {

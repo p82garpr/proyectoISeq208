@@ -29,6 +29,7 @@ class alumno: public usuario{
 		void listar_cursos();
 		void registro();
 		void inscribir_curso();
+		bool inicio_sesion_bbdd();
 };
 
 #endif /* SRC_ALUMNO_H_ */

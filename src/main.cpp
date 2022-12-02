@@ -37,6 +37,7 @@ int main() {
 
 	*/
 	curso c(0);
+	alumno a("a","a","a","a","a");
 	//c.volcar_curso();
 	//c.agregarCurso();
 	//c.listarCursos();
@@ -46,6 +47,8 @@ int main() {
 		cout<<"0. Salir \n\n";
 		cout<<"1. Agregar curso\n\n";
 		cout<<"2. Listar cursos\n\n";
+		cout<<"3. Registro alumno\n\n";
+		cout<<"4. Iniciar sesion\n\n";
 		cin>>opc;
 		switch(opc){
 		case 0:
@@ -56,6 +59,15 @@ int main() {
 			break;
 		case 2:
 			c.listarCursos();
+			break;
+		case 3:
+			fflush(stdin);
+			a.registro();
+			break;
+		case 4:
+			fflush(stdin);
+			a.inicio_sesion_bbdd();
+
 		}
 
 	}while(opc!=0);
