@@ -74,7 +74,7 @@ public:
 
 int getInt(string msj);
 string getString(string msj);
-void limpiarLinea();
+//void limpiarLinea();
 
 
 

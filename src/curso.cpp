@@ -14,7 +14,10 @@
 #include <stdio.h>
 using namespace std;
 
-
+void enter(){
+	cout<<"Presiona Enter para continuar...";
+	getchar();
+}
 void curso::mostrar(curso c){
 	cout<<"ID----------:"<<c.id_curso_<<endl;
 	cout<<"Nombre----------:"<<c.nombre_<<endl;
@@ -27,13 +30,13 @@ void curso::mostrar(curso c){
 	cout<<"___________________________________________"<<endl;
 }
 
-
+/*
 void limpiarLinea(){
 	int ch;
 	while((ch= fgetc(stdin))!= EOF){
 		if(ch == '\n') break;
 	}
-}
+}*/
 
 int getInt(string msj){
 	int n;
@@ -76,26 +79,52 @@ void curso::volcar_curso(){
 	ofstream escritura;
 	ifstream verificador;
 
+	bool encontrado=false;
 	string id;
 	string nombre;
 	string fechaIni;
 	string fechaFin;
 	string desc;
 	string aforo;
+	string statss;
+	string inscrr;
+	int inscr=0;
+	float stats=0.0;
+
 	verificador.open("cursos.txt",ios::in);
 	escritura.open("cursos.txt",ios::app);
 	if(escritura.is_open() && verificador.is_open()){
 		cout<<"\t ***Crear Curso***\t\n\n";
-		fflush(stdin);
+		//fflush(stdin);
 		cout<<"Ingresa el id del curso: ";
 		getline(cin,id);
+		string auxID=id;
 		cout<<endl;
-		/*do{
+		do{
 			verificador.seekg(0);
 			getline(verificador,id);
-		}while(!verificador.eof());*/
+			while(!verificador.eof())
+			{
+				getline(verificador,nombre);
+				getline(verificador,fechaIni);
+				getline(verificador,fechaFin);
+				getline(verificador,desc);
+				getline(verificador,statss);
+				getline(verificador,aforo);
+				getline(verificador,inscrr);
+				if(id==auxID){
+					encontrado=true;
+					cout<<"YA EXISTE UN CURSO CON ESE CODIGO \n";
+					break;
+				}
+				getline(verificador,id);
+			}
+			if(verificador.eof()&&auxID!=id){
+				encontrado=false;
+			}
+		}while(encontrado==true);
+		id=auxID;
 		//fflush(stdin);
-
 		cout<<"Ingresa el nombre del curso: ";
 		getline(cin,nombre);
 		cout<<endl;
@@ -119,14 +148,12 @@ void curso::volcar_curso(){
 		cout<<"Ingresa el aforo del curso: ";
 		getline(cin,aforo);
 		cout<<endl;
-		int inscr=0;
-		float stats=0.0;
 
 		escritura<<id<<"\n"<<nombre<<"\n"<<fechaIni<<"\n"<<fechaFin<<"\n"<<desc<<"\n"<<stats<<"\n"<<aforo<<"\n"<<inscr<<"\n";
 
-
-
 	}
+	//cout<<id<<endl;
+	cout<<"Se ha añadido correctamente el curso"<<endl;
 	escritura.close();
 	verificador.close();
 
