@@ -71,7 +71,7 @@ void curso::mostrar_informacion(int id_curso){
 
 }
 
-/*
+
 void curso::volcar_curso(){
 	ofstream escritura;
 	ifstream verificador;
@@ -90,53 +90,48 @@ void curso::volcar_curso(){
 		cout<<"Ingresa el id del curso: ";
 		getline(cin,id);
 		cout<<endl;
-
-
-
-		do{
+		/*do{
 			verificador.seekg(0);
-			getline(verificador,)
+			getline(verificador,id);
+		}while(!verificador.eof());*/
+		//fflush(stdin);
 
-		}while();
-
-
-
-
-
-
-
-
-		fflush(stdin);
 		cout<<"Ingresa el nombre del curso: ";
 		getline(cin,nombre);
 		cout<<endl;
 
-		fflush(stdin);
+		//fflush(stdin);
 		cout<<"Ingresa la fecha inicio del curso: ";
 		getline(cin,fechaIni);
 		cout<<endl;
 
-		fflush(stdin);
+		//fflush(stdin);
 		cout<<"Ingresa la fecha fin del curso: ";
 		getline(cin,fechaFin);
 		cout<<endl;
 
-		fflush(stdin);
+		//fflush(stdin);
 		cout<<"Introduce una breve descripcion del curso: ";
 		getline(cin,desc);
 		cout<<endl;
 
-		fflush(stdin);
-		cout<<"Ingresa el id del curso: ";
+		//fflush(stdin);
+		cout<<"Ingresa el aforo del curso: ";
 		getline(cin,aforo);
 		cout<<endl;
+		int inscr=0;
+		float stats=0.0;
+
+		escritura<<id<<"\n"<<nombre<<"\n"<<fechaIni<<"\n"<<fechaFin<<"\n"<<desc<<"\n"<<stats<<"\n"<<aforo<<"\n"<<inscr<<"\n";
 
 
 
 	}
+	escritura.close();
+	verificador.close();
 
 
-}*/
+}
 
 // 00:24
 
@@ -180,24 +175,12 @@ void curso::agregarCurso(){
 	aux.setId(idd);
 	cin.ignore();
 	cout<<"\n Introduce el nombre del curso: ";
-	//fflush(stdin);
-	//cin.ignore();
-	//limpiarLinea();
 	getline(cin,nombre);
 	cout<<"\n Introduce la fecha de inicio del curso: ";
-	//fflush(stdin);
-	//cin.ignore();
-	//limpiarLinea();
 	getline(cin,fecha_ini);
 	cout<<"\n Introduce la fecha de fin del curso: ";
-	//fflush(stdin);
-	//cin.ignore();
-	//limpiarLinea();
 	getline(cin,fecha_fin);
 	cout<<"\n Introduce la descripcion del cruso: ";
-	//fflush(stdin);
-	//cin.ignore();
-	//limpiarLinea();
 	getline(cin,desc);
 	nombre=nombre.c_str();
 	aforo=getInt("Introduce el aforo del curso: ");
@@ -208,8 +191,6 @@ void curso::agregarCurso(){
 	aux.setAforo(aforo);
 	aux.setEstadisticaAlcance(0.0);
 	aux.setAlumnosInscritos(0);
-	//curso c(1,"aa","aa","aaa","asdas",0.0,1,1);
-	//mostrar(aux);
 	fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
 	e.seekp(0,ios::end);
 	mostrar(aux);
