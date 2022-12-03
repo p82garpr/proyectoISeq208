@@ -14,10 +14,6 @@
 #include <stdio.h>
 using namespace std;
 
-void enter(){
-	cout<<"Presiona Enter para continuar...";
-	getchar();
-}
 void curso::mostrar(curso c){
 	cout<<"ID----------:"<<c.id_curso_<<endl;
 	cout<<"Nombre----------:"<<c.nombre_<<endl;
@@ -166,21 +162,6 @@ void curso::volcar_curso(){
 
 }
 
-// 00:24
-
-/*
-curso curso::getCurso(int id){
-	fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
-	curso aux(id);
-	if(e.is_open()){
-		e.seekp(((id)-1)*sizeof(curso));
-		e.write((char*)&aux,sizeof(curso));
-		e.close();
-	}
-	return aux;
-}
-*/
-
 void curso::agregarCurso(){
 	int idd,aforo;
 	string nombre;
@@ -216,44 +197,9 @@ void curso::agregarCurso(){
 	e.write((char*)&aux,sizeof(curso));
 	e.close();
 
-	/*
-	curso auxx = getCurso(aux.id_curso_);
-	//if(auxx.id_curso_!=0){
-		//cout<<"El registro ya existe!!"<<endl;
-	//}else{
-		fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
-		if(e.is_open()){
-			//cout<<"HOLAAAA";
-			//e.seekp(((aux.id_curso_)-1)*sizeof(curso));
-			e.seekp(0,ios::end);
-			e.write((char*)&aux,sizeof(curso));
-			e.close();
-		}else{
-			cout<<"Error"<<strerror(errno);
-		}
-	//}
-	 */
 }
 
 void curso::listarCursos(){
-	//fstream e("Cursos.txt", fstream::in | fstream::binary);
-	//fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
-	//curso aux;
-	//e.seek(0,ios::)
-/*
-	if(e.is_open()){
-		e.read((char *)&aux, sizeof(curso));
-		while(!e.eof()){
-			mostrar(aux);
-			e.read((char *)&aux, sizeof(curso));
-			}
-		e.close();
-		}
-*/
-	//e.read((char *)&aux, sizeof(curso));
-	//mostrar(aux);
-	//e.close();
-	//TODO LO ANTERIOR ES EL INTENTO CON BINARIOS (FUTURA MEJORA JUNTO CON BBDD
 	curso CAux;
 	int i=0;
 	string vacio;
@@ -292,10 +238,46 @@ void curso::listarCursos(){
 			}
 
 			read.close();
-			cout<<"Hay uin total de "<<i<<" cursos"<<endl;
-
-
+			cout<<"Hay un total de "<<i<<" cursos"<<endl;
 }
+
+bool curso::buscar_curso(string id){
+	curso busca;
+	string id_linea;
+	string aux;
+	ifstream read;
+	read.open("Cursos.txt",ios::in);
+	cout<<endl;
+	bool encontrado =false;
+	do{
+		read.seekg(0);
+		getline(read,id_linea);
+		while(!read.eof()){
+			getline(read,aux);
+			getline(read,aux);
+			getline(read,aux);
+			getline(read,aux);
+			getline(read,aux);
+			getline(read,aux);
+			getline(read,aux);
+			if(id_linea==id){
+				encontrado=true;
+				read.close();
+				return encontrado;
+			}
+			getline(read,id_linea);
+
+		}
+		if(read.eof()&&id!=id_linea){
+			encontrado=false;
+		}
+	}while(encontrado==true);
+	read.close();
+	return encontrado;
+}
+
+
+
 
 curso::~curso() {
 	// TODO Auto-generated destructor stub

@@ -68,6 +68,7 @@ public:
 	void agregarCurso();
 	void mostrar(curso c);
 	void listarCursos();
+	bool buscar_curso(string id);
 
 
 };

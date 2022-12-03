@@ -12,10 +12,10 @@
 
 
 void alumno::listar_cursos(){
-	list<string>::iterator it;
+	/*list<string>::iterator it;
 	for(it=lista_cursos_.begin();it!=lista_cursos_.end();it++){
 		cout<<*it<<endl;
-	}
+	}*/
 }
 
 void alumno::registro(){
@@ -160,6 +160,7 @@ bool alumno::inicio_sesion_bbdd(){
 			 * 			CONTRASEÑA
 			 *			¿CURSOS REGISTRADOS?
 			 */
+
 			getline(read,aux);
 			getline(read,aux);
 			getline(read,usuarioUCO);
@@ -191,6 +192,90 @@ bool alumno::inicio_sesion_bbdd(){
 	read.close();
 	return 0;
 }
+
+
+alumno alumno::get_alumno(string ID){
+	alumno NotFound("empty");
+	alumno get;
+	get.setDni(ID);
+	bool encontrado=false;
+		string dniAux;
+		string nombreCompleto;
+		string fechaNac;
+		string usuarioUCO;
+		string pass;
+		string aux; // CRUSOS REGISTRADOS
+		ifstream read;
+		read.open("AlumnosRegistrados.txt",ios::in);
+		cout<<endl;
+		do{
+			read.seekg(0);
+			getline(read,dniAux);
+			while(!read.eof())
+			{
+				/*
+				 * LA FORMA DE GUARDAR LOS REGISTROS ES:
+				 * 			DNI
+				 * 			NOMBRE COMPLETO
+				 * 			FECHA NAC
+				 * 			USUARIO UCO
+				 * 			CONTRASEÑA
+				 *			¿CURSOS REGISTRADOS?
+				 */
+
+				getline(read,nombreCompleto);
+				getline(read,fechaNac);
+				getline(read,usuarioUCO);
+				getline(read,pass);
+				getline(read,aux);
+				//cout<<"EL DNI DEL FICHERO ES...:"<<dni<<endl;
+				//cout<<"LA PASS DEL FICHERO ES...:"<<pass<<endl;
+				if(ID==dniAux){
+					encontrado=true;
+					get.setContrasena(pass);
+					get.setFechaNacimiento(fechaNac);
+					get.setNombreCompleto(nombreCompleto);
+					get.setUsuarioUco(usuarioUCO);
+					get.setListaCursos(aux);
+					return get;
+					read.close();
+				}
+				getline(read,dniAux);
+			}
+			if(read.eof()&&dniAux!=ID){
+			            encontrado=false;
+			            //return 0;
+			            return NotFound;
+			        }
+		}while(encontrado==true);
+		read.close();
+		return NotFound;
+		//return 0;
+}
+
+
+void alumno::Perfil(string DNI){
+	alumno perfil;
+	perfil.setDni(DNI);
+	perfil=perfil.get_alumno(DNI);
+	cout<<"DNI --------------------:"<<perfil.getDni()<<endl;
+	cout<<"Nombre completo --------:"<<perfil.getNombreCompleto()<<endl;
+	cout<<"Usuario UCO ------------:"<<perfil.getUsuarioUco()<<endl;
+	cout<<"Fecha Nacimiento -------:"<<perfil.getFechaNacimiento()<<endl;
+	cout<<"Cursos registrado ------:"<<perfil.getListaCursos()<<endl;
+}
+
+
+
+
+
+/*
+void inscribir_curso(string DNI, string IDCurso){
+
+
+}
+*/
+
 
 /*
 alumno::alumno() {
