@@ -25,13 +25,11 @@ class alumno: public usuario{
 				string dni="",
 				string contrasena="",
 				string lista_cursos=""):usuario(usuario_uco,nombre_completo,fecha_nacimiento,dni,contrasena){lista_cursos_=lista_cursos;}
-		//virtual ~alumno();
 
 		inline void setListaCursos(string lista){lista_cursos_=lista;}
 		inline string& getListaCursos(){return lista_cursos_;}
 		void listar_cursos();
 		void registro();
-		//void inscribir_curso();
 		bool inicio_sesion_bbdd();
 		alumno get_alumno(string ID); //receives DNI and get a "struct" of the user found, if not, returns struct with USER "empty"
 		void Perfil(string DNI);

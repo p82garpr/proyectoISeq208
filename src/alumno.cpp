@@ -72,7 +72,8 @@ void alumno::registro(){
 					//cout<<"Introduce un código válido"<<endl;
 					//getline(cin,id);
 					//break;
-
+					escritura.close();
+					verificador.close();
 					cout<<"saliendo..."<<endl; //ENTRA EN BUCLE CUANDO PIDO OTRO
 					return;
 
@@ -121,7 +122,6 @@ void alumno::registro(){
 
 		//fflush(stdin);
 		escritura<<dni<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n"<<"cursos"<<"\n";
-
 	}
 	//cout<<id<<endl;
 	cout<<"Se ha añadido correctamente el curso"<<endl;
@@ -319,6 +319,10 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 	cout<<"Te has registrado correctamente"<<endl;
 	escritura.close();
 	verificador.close();
+
+	//ABRIR FICHERO ALUMNOS Y ACTUALIZAR LOS CURSOS EN LOS QUE SE ENCUENTRA REGISTRADO
+	//ABRIR FICHERO CURSOS Y AÑADIR +1 A LOS INSCRITOS. ( Y STATS DE ALCANCE)
+
 }
 
 

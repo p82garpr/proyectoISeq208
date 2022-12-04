@@ -107,6 +107,7 @@ int main() {
 			cout<<"Introduce el curso al que quieres registrarte: ";
 			cin>>y;
 			a.inscribir_curso(y, x); //IDCURSO, DNI
+			break;
 		}
 
 	}while(opc!=0);

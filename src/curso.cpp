@@ -114,10 +114,10 @@ void curso::volcar_curso(){
 					//cout<<"Introduce un código válido"<<endl;
 					//getline(cin,id);
 					//break;
-
 					cout<<"saliendo..."<<endl; //ENTRA EN BUCLE CUANDO PIDO OTRO
+					escritura.close();
+					verificador.close();
 					return;
-
 				}
 				getline(verificador,id);
 			}
@@ -152,13 +152,11 @@ void curso::volcar_curso(){
 		cout<<endl;
 
 		escritura<<id<<"\n"<<nombre<<"\n"<<fechaIni<<"\n"<<fechaFin<<"\n"<<desc<<"\n"<<stats<<"\n"<<aforo<<"\n"<<inscr<<"\n";
-
 	}
 	//cout<<id<<endl;
 	cout<<"Se ha añadido correctamente el curso"<<endl;
 	escritura.close();
 	verificador.close();
-
 
 }
 
@@ -213,7 +211,6 @@ void curso::listarCursos(){
 				id_curso_=stoi(aux);
 				while(!read.eof()){
 					i++;
-
 					getline(read,nombre_);
 					getline(read,fecha_ini_);
 					getline(read,fecha_fin_);
@@ -234,9 +231,7 @@ void curso::listarCursos(){
 					//cout<<"LO QUE TIENE AUX ES: "<<aux<<endl;
 					id_curso_=stoi(aux);
 				}
-
 			}
-
 			read.close();
 			cout<<"Hay un total de "<<i<<" cursos"<<endl;
 }
