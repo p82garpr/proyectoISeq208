@@ -1,9 +1,9 @@
 //============================================================================
 // Name        : proyecto.cpp
-// Author      : 
+// Author      : rafag
 // Version     :
 // Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Description : Main menu of our fancy program
 //============================================================================
 
 #include <iostream>
@@ -38,7 +38,7 @@ int main() {
 	//cout<<"holis"<< endl;
 
 	*/
-	string x;
+	string x,y;
 	curso c(0);
 	alumno a("a","a","a","a","a");
 	alumno b;
@@ -47,7 +47,7 @@ int main() {
 	//c.listarCursos();
 	int opc;
 	do{
-		system("cls");
+		system("clear");
 		cout<<"ELIGE UNA OPCION\n";
 		cout<<"0. Salir \n\n";
 		cout<<"1. Agregar curso\n\n";
@@ -56,6 +56,7 @@ int main() {
 		cout<<"4. Iniciar sesion\n\n";
 		cout<<"5. Mis datos\n\n";
 		cout<<"6. Buscar curso\n\n";
+		cout<<"7. Inscribir curso\n\n";
 
 		cin>>opc;
 		//cin.get(opc);
@@ -94,17 +95,21 @@ int main() {
 			}else{
 				cout<<"NO ENCONTRADO!!"<<endl;
 			}
-			break;
 			fflush(stdin);
 			enter();
+			break;
+		case 7:
+			fflush(stdin);
+			cout<<"Introduce tu DNI: ";
+			cin>>x;
+			cout<<endl;
+			fflush(stdin);
+			cout<<"Introduce el curso al que quieres registrarte: ";
+			cin>>y;
+			a.inscribir_curso(y, x); //IDCURSO, DNI
 		}
 
 	}while(opc!=0);
-
-
-
-
-
 }
 
 

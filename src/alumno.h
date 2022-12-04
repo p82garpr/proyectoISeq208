@@ -31,10 +31,11 @@ class alumno: public usuario{
 		inline string& getListaCursos(){return lista_cursos_;}
 		void listar_cursos();
 		void registro();
-		void inscribir_curso();
+		//void inscribir_curso();
 		bool inicio_sesion_bbdd();
 		alumno get_alumno(string ID); //receives DNI and get a "struct" of the user found, if not, returns struct with USER "empty"
 		void Perfil(string DNI);
+		void inscribir_curso(string IDCurso,string DNI);
 };
 
 #endif /* SRC_ALUMNO_H_ */

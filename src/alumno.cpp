@@ -6,6 +6,7 @@
  */
 
 #include "alumno.h"
+#include "curso.h"
 #include <list>
 #include <string>
 #include <fstream>
@@ -269,12 +270,57 @@ void alumno::Perfil(string DNI){
 
 
 
+
+void alumno::inscribir_curso(string IDCurso, string DNI){
+	curso c;
+	if(!c.buscar_curso(IDCurso)){
+		cout<<"Curso no disponible o no encontrado, saliendo..."<<endl;
+		return;
+	}
 /*
-void inscribir_curso(string DNI, string IDCurso){
+ * LA ESTRUCTURA DEL FICHERO REGUSTROCRUSO, SERÁ:
+ * DNI --solo se almacena el dni que esta registrado.
+ * */
+	ofstream escritura;
+	ifstream verificador;
+	bool encontrado=false;
+	string dniAux;
+	string aux;
+	string documento=IDCurso + "Registrados.txt";
+	verificador.open(documento,ios::in);
+	escritura.open(documento,ios::app);
+	escritura.close();
+	verificador.close();
+	verificador.open(documento,ios::in);
+	escritura.open(documento,ios::app);
 
-
+	if(escritura.is_open() && verificador.is_open()){
+		do{
+			verificador.seekg(0);
+			getline(verificador,dniAux);
+			while(!verificador.eof())
+			{
+				if(DNI==dniAux){
+					encontrado=true;
+					cout<<"YA ESTAS REGISTRADO EN ESTE CURSO \n";
+					cout<<"saliendo..."<<endl; //ENTRA EN BUCLE CUANDO PIDO OTRO
+					escritura.close();
+					verificador.close();
+					return;
+				}
+				getline(verificador,dniAux);
+			}
+			if(verificador.eof()&&dniAux!=DNI){
+				encontrado=false;
+			}
+		}while(encontrado==true);
+		escritura<<DNI<<"\n";
+	}
+	cout<<"Te has registrado correctamente"<<endl;
+	escritura.close();
+	verificador.close();
 }
-*/
+
 
 
 /*
