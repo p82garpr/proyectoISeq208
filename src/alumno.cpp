@@ -12,6 +12,7 @@
 #include <fstream>
 
 
+
 void alumno::listar_cursos(){
 	/*list<string>::iterator it;
 	for(it=lista_cursos_.begin();it!=lista_cursos_.end();it++){
@@ -120,11 +121,12 @@ void alumno::registro(){
 
 
 		//fflush(stdin);
-		escritura<<dni<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n"<<"cursos"<<"\n";
+		//METER /N Y COMPROBRAR QUE EL PRIMER REGISTRO NO TENGA /N
+		escritura<<dni<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n";
 
 	}
 	//cout<<id<<endl;
-	cout<<"Se ha añadido correctamente el curso"<<endl;
+	cout<<"Se ha añadido correctamente el usuario"<<endl;
 	escritura.close();
 	verificador.close();
 }
@@ -228,7 +230,7 @@ alumno alumno::get_alumno(string ID){
 				getline(read,fechaNac);
 				getline(read,usuarioUCO);
 				getline(read,pass);
-				getline(read,aux);
+				getline(read,aux); //NUMERO DE CURSOS REGISTRADOS DEL ALUMNO X
 				//cout<<"EL DNI DEL FICHERO ES...:"<<dni<<endl;
 				//cout<<"LA PASS DEL FICHERO ES...:"<<pass<<endl;
 				if(ID==dniAux){
@@ -267,10 +269,6 @@ void alumno::Perfil(string DNI){
 }
 
 
-
-
-
-
 void alumno::inscribir_curso(string IDCurso, string DNI){
 	curso c;
 	if(!c.buscar_curso(IDCurso)){
@@ -281,7 +279,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
  * LA ESTRUCTURA DEL FICHERO REGUSTROCRUSO, SERÁ:
  * DNI --solo se almacena el dni que esta registrado.
  * */
-	ofstream escritura;
+	ofstream escritura, escritura2;
 	ifstream verificador;
 	bool encontrado=false;
 	string dniAux;
@@ -289,12 +287,15 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 	string documento=IDCurso + "Registrados.txt";
 	verificador.open(documento,ios::in);
 	escritura.open(documento,ios::app);
+	escritura2.open("AlumnosRegistrados.txt",ios::app);
+	escritura2.close();
 	escritura.close();
 	verificador.close();
 	verificador.open(documento,ios::in);
 	escritura.open(documento,ios::app);
+	escritura2.open("AlumnosRegistrados.txt",ios::app);
 
-	if(escritura.is_open() && verificador.is_open()){
+	if(escritura.is_open() && verificador.is_open() && escritura2.is_open()){
 		do{
 			verificador.seekg(0);
 			getline(verificador,dniAux);
@@ -306,6 +307,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 					cout<<"saliendo..."<<endl; //ENTRA EN BUCLE CUANDO PIDO OTRO
 					escritura.close();
 					verificador.close();
+					escritura2.close();
 					return;
 				}
 				getline(verificador,dniAux);
@@ -315,11 +317,79 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 			}
 		}while(encontrado==true);
 		escritura<<DNI<<"\n";
+		//Posicion de lista de cursos de cada registro
+		if(buscar_alumno(DNI,aux)>0){
+			escritura2.seekp(buscar_alumno(DNI,aux)*6);
+
+			aux+=IDCurso+",";
+			//FALTA HACER PARA QUE HAYA MAS DE 1 CURSO ASIGNADO
+			escritura2<<IDCurso+",";
+		}
+
+
+		//SE DEBE DE MODIFICAR EL ARCHIVO DE ALUMNOSREGISTRADOS.TXT Y ATUALIZAR EL VALOR DE LOS CURSOS
 	}
 	cout<<"Te has registrado correctamente"<<endl;
 	escritura.close();
+	escritura2.close();
 	verificador.close();
 }
+
+//FUNCION QUE DEVUELVE EL NUMERO DE REGISTRO DONDE SE ENCUENTRA EL ALUMNO
+int alumno::buscar_alumno(string DNI,string &aux){
+		bool encontrado=false;
+		int nregistro=0;
+			string dniAux;
+			string nombreCompleto;
+			string fechaNac;
+			string usuarioUCO;
+			string pass;
+			//string aux; // CRUSOS REGISTRADOS
+			ifstream read;
+			read.open("AlumnosRegistrados.txt",ios::in);
+			cout<<endl;
+			do{
+				read.seekg(0);
+				getline(read,dniAux);
+				while(!read.eof())
+				{
+					/*
+					 * LA FORMA DE GUARDAR LOS REGISTROS ES:
+					 * 			DNI
+					 * 			NOMBRE COMPLETO
+					 * 			FECHA NAC
+					 * 			USUARIO UCO
+					 * 			CONTRASEÑA
+					 *			¿CURSOS REGISTRADOS?
+					 */
+
+					getline(read,nombreCompleto);
+					getline(read,fechaNac);
+					getline(read,usuarioUCO);
+					getline(read,pass);
+					getline(read,aux); //NUMERO DE CURSOS REGISTRADOS DEL ALUMNO X
+					//cout<<"EL DNI DEL FICHERO ES...:"<<dni<<endl;
+					//cout<<"LA PASS DEL FICHERO ES...:"<<pass<<endl;
+					nregistro++;
+					if(DNI==dniAux){
+						encontrado=true;
+						read.close();
+						return nregistro;
+					}
+					getline(read,dniAux);
+				}
+				if(read.eof()&&dniAux!=DNI){
+				          encontrado=false;
+
+				}
+			}while(encontrado==true);
+			read.close();
+			return nregistro;
+			//return 0;
+
+
+}
+
 
 
 

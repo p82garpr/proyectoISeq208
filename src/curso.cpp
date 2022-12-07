@@ -13,6 +13,7 @@
 #include <errno.h>
 #include <stdio.h>
 using namespace std;
+int numero_cursos=0;
 
 void curso::mostrar(curso c){
 	cout<<"ID----------:"<<c.id_curso_<<endl;
@@ -239,6 +240,7 @@ void curso::listarCursos(){
 
 			read.close();
 			cout<<"Hay un total de "<<i<<" cursos"<<endl;
+			numero_cursos=i;
 }
 
 bool curso::buscar_curso(string id){
@@ -277,7 +279,9 @@ bool curso::buscar_curso(string id){
 }
 
 
-
+int curso::get_numero_cursos(){
+	return numero_cursos;
+}
 
 curso::~curso() {
 	// TODO Auto-generated destructor stub
