@@ -76,7 +76,12 @@ int main() {
 			break;
 		case 4:
 			fflush(stdin);
-			a.inicio_sesion_bbdd();
+			cout<<"Introduce DNI: "<<endl;
+			cin>>x;
+			fflush(stdin);
+			cout<<"Introduce pass: "<<endl;
+			cin>>y;
+			a.inicio_sesion_bbdd(x,y);
 			break;
 		case 5:
 			fflush(stdin);

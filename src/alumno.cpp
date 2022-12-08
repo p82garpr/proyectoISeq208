@@ -131,19 +131,20 @@ void alumno::registro(){
 	verificador.close();
 }
 
-bool alumno::inicio_sesion_bbdd(){
+bool alumno::inicio_sesion_bbdd(string dni, string pass){
+	//TODO CHECK CIN REMOVED AND NOW PASSED THROUG PARAM
 
 	bool encontrado=false;
-	string dni;
-	string pass;
+	//string dni;
+	//string pass;
 
 	string aux;
 	string usuarioUCO;
-	cout<<"Introduce DNI: ";
-	getline(cin,dni);
+	//cout<<"Introduce DNI: ";
+	//getline(cin,dni);
 	string auxDNI=dni;
-	cout<<"Introduce contrasenia: ";
-	getline(cin,pass);
+	//cout<<"Introduce contrasenia: ";
+	//getline(cin,pass);
 	string passAux=pass;
 	ifstream read;
 	read.open("AlumnosRegistrados.txt",ios::in);
@@ -269,11 +270,11 @@ void alumno::Perfil(string DNI){
 }
 
 
-void alumno::inscribir_curso(string IDCurso, string DNI){
+bool alumno::inscribir_curso(string IDCurso, string DNI){
 	curso c;
 	if(!c.buscar_curso(IDCurso)){
 		cout<<"Curso no disponible o no encontrado, saliendo..."<<endl;
-		return;
+		return 0;
 	}
 /*
  * LA ESTRUCTURA DEL FICHERO REGUSTROCRUSO, SERÁ:
@@ -308,7 +309,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 					escritura.close();
 					verificador.close();
 					escritura2.close();
-					return;
+					return 0;
 				}
 				getline(verificador,dniAux);
 			}
@@ -333,6 +334,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 	escritura.close();
 	escritura2.close();
 	verificador.close();
+	return 1;
 }
 
 //FUNCION QUE DEVUELVE EL NUMERO DE REGISTRO DONDE SE ENCUENTRA EL ALUMNO
