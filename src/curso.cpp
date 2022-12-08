@@ -87,6 +87,8 @@ void curso::volcar_curso(){
 	string inscrr;
 	int inscr=0;
 	float stats=0.0;
+	int cont=0;
+
 
 	verificador.open("cursos.txt",ios::in);
 	escritura.open("cursos.txt",ios::app);
@@ -109,6 +111,7 @@ void curso::volcar_curso(){
 				getline(verificador,statss);
 				getline(verificador,aforo);
 				getline(verificador,inscrr);
+				cont++;
 				if(id==auxID){
 					encontrado=true;
 					cout<<"YA EXISTE UN CURSO CON ESE CODIGO \n";
@@ -152,7 +155,10 @@ void curso::volcar_curso(){
 		getline(cin,aforo);
 		cout<<endl;
 
-		escritura<<id<<"\n"<<nombre<<"\n"<<fechaIni<<"\n"<<fechaFin<<"\n"<<desc<<"\n"<<stats<<"\n"<<aforo<<"\n"<<inscr<<"\n";
+		if(cont==0)
+			escritura<<id<<"\n"<<nombre<<"\n"<<fechaIni<<"\n"<<fechaFin<<"\n"<<desc<<"\n"<<stats<<"\n"<<aforo<<"\n";
+		else
+			escritura<<"\n"<<id<<"\n"<<nombre<<"\n"<<fechaIni<<"\n"<<fechaFin<<"\n"<<desc<<"\n"<<stats<<"\n"<<aforo<<"\n";
 
 	}
 	//cout<<id<<endl;

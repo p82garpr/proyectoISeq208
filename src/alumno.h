@@ -37,6 +37,8 @@ class alumno: public usuario{
 		void Perfil(string DNI);
 		void inscribir_curso(string IDCurso,string DNI);
 		int buscar_alumno(string DNI, string &aux);
+		int cuenta_alumnos(string IDcurso);
+		int buscar_curso(string IDcurso);
 };
 
 #endif /* SRC_ALUMNO_H_ */

@@ -33,6 +33,7 @@ void alumno::registro(){
 	string pass;
 	string pass2;
 	string CURSOS;
+	int cont=0;
 
 	/*
 	 * LA FORMA DE GUARDAR LOS REGISTROS ES:
@@ -65,7 +66,8 @@ void alumno::registro(){
 				getline(verificador,fechaNac);
 				getline(verificador,usuarioUCO);
 				getline(verificador,pass);
-				getline(verificador,CURSOS); //LISTA DE CURSOS
+				getline(verificador,CURSOS);
+				cont++;//LISTA DE CURSOS
 				//getline(verificador,inscrr);
 				if(dni==auxID){
 					encontrado=true;
@@ -119,10 +121,14 @@ void alumno::registro(){
 			}while(pass!=pass2);
 		}
 
-
+		verificador.seekg(0);
+		string x;
 		//fflush(stdin);
 		//METER /N Y COMPROBRAR QUE EL PRIMER REGISTRO NO TENGA /N
-		escritura<<dni<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n";
+		if(cont==0)
+			escritura<<dni<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n";
+		else
+			escritura<<"\n"<<dni<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n";
 
 	}
 	//cout<<id<<endl;
@@ -279,7 +285,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
  * LA ESTRUCTURA DEL FICHERO REGUSTROCRUSO, SERÁ:
  * DNI --solo se almacena el dni que esta registrado.
  * */
-	ofstream escritura, escritura2;
+	ofstream escritura, escritura2,escritura3;
 	ifstream verificador;
 	bool encontrado=false;
 	string dniAux;
@@ -288,14 +294,17 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 	verificador.open(documento,ios::in);
 	escritura.open(documento,ios::app);
 	escritura2.open("AlumnosRegistrados.txt",ios::app);
+	escritura3.open("cursos.txt",ios::app);
+	escritura3.close();
 	escritura2.close();
 	escritura.close();
 	verificador.close();
 	verificador.open(documento,ios::in);
 	escritura.open(documento,ios::app);
 	escritura2.open("AlumnosRegistrados.txt",ios::app);
+	escritura3.open("cursos.txt",ios::app);
 
-	if(escritura.is_open() && verificador.is_open() && escritura2.is_open()){
+	if(escritura.is_open() && verificador.is_open() && escritura2.is_open() && escritura3.is_open()){
 		do{
 			verificador.seekg(0);
 			getline(verificador,dniAux);
@@ -308,6 +317,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 					escritura.close();
 					verificador.close();
 					escritura2.close();
+					escritura3.close();
 					return;
 				}
 				getline(verificador,dniAux);
@@ -317,21 +327,26 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 			}
 		}while(encontrado==true);
 		escritura<<DNI<<"\n";
-		//Posicion de lista de cursos de cada registro
+
 		if(buscar_alumno(DNI,aux)>0){
 			escritura2.seekp(buscar_alumno(DNI,aux)*6);
 
-			aux+=IDCurso+",";
-			//FALTA HACER PARA QUE HAYA MAS DE 1 CURSO ASIGNADO
 			escritura2<<IDCurso+",";
 		}
 
 
-		//SE DEBE DE MODIFICAR EL ARCHIVO DE ALUMNOSREGISTRADOS.TXT Y ATUALIZAR EL VALOR DE LOS CURSOS
+		if(buscar_curso(IDCurso)>0){
+			escritura3.seekp(buscar_curso(IDCurso)*8);
+			escritura3<<cuenta_alumnos(IDCurso);
+
+
+		}
+
 	}
 	cout<<"Te has registrado correctamente"<<endl;
 	escritura.close();
 	escritura2.close();
+	escritura3.close();
 	verificador.close();
 }
 
@@ -348,41 +363,43 @@ int alumno::buscar_alumno(string DNI,string &aux){
 			ifstream read;
 			read.open("AlumnosRegistrados.txt",ios::in);
 			cout<<endl;
-			do{
-				read.seekg(0);
-				getline(read,dniAux);
-				while(!read.eof())
-				{
-					/*
-					 * LA FORMA DE GUARDAR LOS REGISTROS ES:
-					 * 			DNI
-					 * 			NOMBRE COMPLETO
-					 * 			FECHA NAC
-					 * 			USUARIO UCO
-					 * 			CONTRASEÑA
-					 *			¿CURSOS REGISTRADOS?
-					 */
-
-					getline(read,nombreCompleto);
-					getline(read,fechaNac);
-					getline(read,usuarioUCO);
-					getline(read,pass);
-					getline(read,aux); //NUMERO DE CURSOS REGISTRADOS DEL ALUMNO X
-					//cout<<"EL DNI DEL FICHERO ES...:"<<dni<<endl;
-					//cout<<"LA PASS DEL FICHERO ES...:"<<pass<<endl;
-					nregistro++;
-					if(DNI==dniAux){
-						encontrado=true;
-						read.close();
-						return nregistro;
-					}
+			if(read.is_open()){
+				do{
+					read.seekg(0);
 					getline(read,dniAux);
-				}
-				if(read.eof()&&dniAux!=DNI){
-				          encontrado=false;
+					while(!read.eof())
+					{
+						/*
+						 * LA FORMA DE GUARDAR LOS REGISTROS ES:
+						 * 			DNI
+						 * 			NOMBRE COMPLETO
+						 * 			FECHA NAC
+						 * 			USUARIO UCO
+						 * 			CONTRASEÑA
+						 *			¿CURSOS REGISTRADOS?
+						 */
 
-				}
-			}while(encontrado==true);
+						getline(read,nombreCompleto);
+						getline(read,fechaNac);
+						getline(read,usuarioUCO);
+						getline(read,pass);
+						getline(read,aux); //NUMERO DE CURSOS REGISTRADOS DEL ALUMNO X
+						//cout<<"EL DNI DEL FICHERO ES...:"<<dni<<endl;
+						//cout<<"LA PASS DEL FICHERO ES...:"<<pass<<endl;
+						nregistro++;
+						if(DNI==dniAux){
+							encontrado=true;
+							read.close();
+							return nregistro;
+						}
+						getline(read,dniAux);
+					}
+					if(read.eof()&&dniAux!=DNI){
+							  encontrado=false;
+
+					}
+				}while(encontrado==true);
+			}
 			read.close();
 			return nregistro;
 			//return 0;
@@ -390,8 +407,100 @@ int alumno::buscar_alumno(string DNI,string &aux){
 
 }
 
+//MODIFICAR ESTA FUNCION PARA PONER EL NUMERO DE INSCRITOS BIEN
+int alumno::cuenta_alumnos(string IDcurso){
+		bool encontrado=false;
+		int nregistro=0;
+			string linea;
+			string documento=IDcurso+"Registrados.txt";
+			int cont=0;
+			//string aux; // CRUSOS REGISTRADOS
+			ifstream read;
+			read.open(documento,ios::in);
+			cout<<endl;
+			if(read.is_open()){
+				do{
+					read.seekg(0);
+					getline(read,linea);
+					cont++;
+					while(!read.eof())
+					{
 
 
+						getline(read,linea);
+						cont++;
+
+
+					}
+					if(read.eof()){
+					   encontrado=false;
+
+					}
+				}while(encontrado==true);
+			}
+			read.close();
+			return nregistro;
+			//return 0;
+
+
+}
+
+int alumno::buscar_curso(string IDcurso){
+
+	bool encontrado=false;
+			int nregistro=0;
+				string idAux;
+				string nombre;
+				string fechaini;
+				string fechafin;
+				string desc;
+				string alcance;
+				string aforo;
+				string ninscritos;
+
+				ifstream read;
+				read.open("cursos.txt",ios::in);
+				cout<<endl;
+				if(read.is_open()){
+					do{
+						read.seekg(0);
+						getline(read,idAux);
+						while(!read.eof())
+						{
+							/*
+							 * LA FORMA DE GUARDAR LOS REGISTROS ES:
+							 * 			DNI
+							 * 			NOMBRE COMPLETO
+							 * 			FECHA NAC
+							 * 			USUARIO UCO
+							 * 			CONTRASEÑA
+							 *			¿CURSOS REGISTRADOS?
+							 */
+
+							getline(read,nombre);
+							getline(read,fechaini);
+							getline(read,fechafin);
+							getline(read,desc);
+							getline(read,alcance);
+							getline(read,aforo);
+							getline(read,ninscritos);
+							nregistro++;
+							if(IDcurso==idAux){
+								encontrado=true;
+								read.close();
+								return nregistro;
+							}
+							getline(read,idAux);
+						}
+						if(read.eof()&&idAux!=IDcurso){
+								  encontrado=false;
+
+						}
+					}while(encontrado==true);
+				}
+				read.close();
+				return nregistro;
+}
 
 /*
 alumno::alumno() {
