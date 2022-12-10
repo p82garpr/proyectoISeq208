@@ -15,36 +15,23 @@
 using namespace std;
 
 void enter();
+void menu_inicio();
 
 int main() {
-	//PARA CONSTRUIR USUARIO NOMBRE FECHA DNI CONTRASEÑA
-	//cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
-	/*string user,pass;
-	list <string> lista={"curso1","curso2"};
-	alumno u("p82","Rafa Garcia Perez","Rafa","3188","puta",lista);
-	cout<<u.getContrasena()<<endl;
-	u.listar_cursos();
-	cout<<"Introduce nombre para inicio de sesion: "<<endl;
-	cin>>user;
-	cout<<"introduce contrasenia: "<<endl;
-	cin>>pass;
-	if(u.iniciar_sesion(user,pass)){
-		cout<<"Contaseña correcta"<<endl;
-		exit(EXIT_SUCCESS);
-	}else{
-		cout<<"Contraseña incorrecta"<<endl;
-		exit(EXIT_FAILURE);
-	}
-	//cout<<"holis"<< endl;
+	curso c;
+	alumno a;
+	//usuario u;
+	int opc;
+	menu_inicio();
 
-	*/
+
+
+
+	/*
 	string x,y;
 	curso c(0);
 	alumno a("a","a","a","a","a");
 	alumno b;
-	//c.volcar_curso();
-	//c.agregarCurso();
-	//c.listarCursos();
 	int opc;
 	do{
 		system("clear");
@@ -109,11 +96,36 @@ int main() {
 			a.inscribir_curso(y, x); //IDCURSO, DNI
 		}
 
-	}while(opc!=0);
+	}while(opc!=0);*/
+
+	return 0;
 }
 
 
 void enter(){
 	cout<<"Presiona Enter para continuar...";
 	getchar();
+}
+
+void menu_inicio(){
+	int opcion;
+	alumno a;
+	do{
+		cout<<"\t\t\t ***Bienvenido al sistema, seleccione una opción***\t\t\t\n\n"<<endl;
+		cout<<"1. Registrarme"<<endl;
+		cout<<"2. Iniciar sesion"<<endl;
+		cout<<"3. Salir del sistema"<<endl;
+		cin>>opcion;
+		switch(opcion){
+		case 1:
+			fflsuh(stdin);
+			a.registro();
+			break;
+		case 2:
+			fflush(stdin);
+			a.inicio_sesion_bbdd;
+		}
+
+
+	}while(opcion!=3);
 }
