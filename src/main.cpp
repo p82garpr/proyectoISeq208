@@ -12,7 +12,7 @@
 #include "usuario.h"
 #include "curso.h"
 #include "alumno.h"
-#include "listaespera.h"
+//#include "listaespera.h"
 using namespace std;
 
 void enter();
@@ -43,7 +43,7 @@ int main() {
 	curso c(0);
 	alumno a("a","a","a","a","a");
 	alumno b;
-	listaespera lista;
+	//listaespera lista;
 	//c.volcar_curso();
 	//c.agregarCurso();
 	//c.listarCursos();
@@ -110,9 +110,8 @@ int main() {
 			cout<<"Introduce el curso al que quieres registrarte: ";
 			cin>>y;
 			a.inscribir_curso(y, x); //IDCURSO, DNI
-		case 8:
-			cout<<"Introduce el curso en el que quieres inscribirte a la lista de espera";
-			lista.insertar_alumno_listaespera(1,23333);
+			break;
+
 
 		}
 
