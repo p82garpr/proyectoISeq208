@@ -72,12 +72,12 @@ void curso::mostrar_informacion(int id_curso){
 }
 
 
-void curso::volcar_curso(){
+bool curso::volcar_curso(curso c){
 	ofstream escritura;
 	ifstream verificador;
 
 	bool encontrado=false;
-	string id;
+	string id=to_string(c.getIdCurso());
 	string nombre;
 	string fechaIni;
 	string fechaFin;
@@ -93,12 +93,9 @@ void curso::volcar_curso(){
 	verificador.open("cursos.txt",ios::in);
 	escritura.open("cursos.txt",ios::app);
 	if(escritura.is_open() && verificador.is_open()){
-		cout<<"\t ***Crear Curso***\t\n\n";
-		//fflush(stdin);
-		cout<<"Ingresa el id del curso: ";
-		getline(cin,id);
+
 		string auxID=id;
-		cout<<endl;
+
 		do{
 			verificador.seekg(0);
 			getline(verificador,id);
@@ -120,7 +117,7 @@ void curso::volcar_curso(){
 					//break;
 
 					cout<<"saliendo..."<<endl; //ENTRA EN BUCLE CUANDO PIDO OTRO
-					return;
+					return false;
 
 				}
 				getline(verificador,id);
@@ -130,41 +127,22 @@ void curso::volcar_curso(){
 			}
 		}while(encontrado==true);
 		id=auxID;
-		//fflush(stdin);
-		cout<<"Ingresa el nombre del curso: ";
-		getline(cin,nombre);
-		cout<<endl;
 
-		//fflush(stdin);
-		cout<<"Ingresa la fecha inicio del curso: ";
-		getline(cin,fechaIni);
-		cout<<endl;
-
-		//fflush(stdin);
-		cout<<"Ingresa la fecha fin del curso: ";
-		getline(cin,fechaFin);
-		cout<<endl;
-
-		//fflush(stdin);
-		cout<<"Introduce una breve descripcion del curso: ";
-		getline(cin,desc);
-		cout<<endl;
-
-		//fflush(stdin);
-		cout<<"Ingresa el aforo del curso: ";
-		getline(cin,aforo);
-		cout<<endl;
 
 		if(cont==0)
-			escritura<<id<<"\n"<<nombre<<"\n"<<fechaIni<<"\n"<<fechaFin<<"\n"<<desc<<"\n"<<stats<<"\n"<<aforo<<"\n"<<inscr;
+			escritura<<id<<"\n"<<c.getNombre()<<"\n"<<c.getFechaIni()<<"\n"<<c.getFechaFin()<<"\n"<<c.getDescripcion()<<"\n"<<stats<<"\n"<<c.getAforo()<<"\n"<<inscr;
 		else
-			escritura<<"\n"<<id<<"\n"<<nombre<<"\n"<<fechaIni<<"\n"<<fechaFin<<"\n"<<desc<<"\n"<<stats<<"\n"<<aforo<<"\n"<<inscr;
+			escritura<<"\n"<<id<<"\n"<<c.getNombre()<<"\n"<<c.getFechaIni()<<"\n"<<c.getFechaFin()<<"\n"<<c.getDescripcion()<<"\n"<<stats<<"\n"<<c.getAforo()<<"\n"<<inscr;
 
+	}else{
+		cout<<"ERROR DE FICHERO"<<endl;
+		return false;
 	}
 	//cout<<id<<endl;
 	cout<<"Se ha añadido correctamente el curso"<<endl;
 	escritura.close();
 	verificador.close();
+	return true;
 
 
 }

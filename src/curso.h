@@ -64,7 +64,7 @@ public:
 
 	void mostrar_informacion(int id_curso);
 
-	void volcar_curso();
+	bool volcar_curso(curso c);
 	void agregarCurso();
 	void mostrar(curso c);
 	void listarCursos();

@@ -120,6 +120,16 @@ void menu_admin(){
 	int opcion;
 	curso c;
 	alumno a;
+	string id;
+	string nombre;
+	string fechaIni;
+	string fechaFin;
+	string desc;
+	string aforo;
+	string statss;
+	string inscrr;
+	int inscr=0;
+	float stats=0.0;
 	system(CLEAR);
 	cout<<"\t\t\t***BIENVENIDO AL MENU DE ADMINISTRADOR***\t\t\t\n\n";
 	do{
@@ -132,7 +142,41 @@ void menu_admin(){
 		switch(opcion){
 		case 1:
 			fflush(stdin);
-			c.volcar_curso();
+			cout<<"\t ***Crear Curso***\t\n\n";
+			//fflush(stdin);
+			cout<<"Ingresa el id del curso: ";
+			getline(cin,id);
+			c.setId(stoi(id));
+			cout<<endl;
+			cout<<"Ingresa el nombre del curso: ";
+			getline(cin,nombre);
+			c.setNombre(nombre);
+			cout<<endl;
+
+			//fflush(stdin);
+			cout<<"Ingresa la fecha inicio del curso: ";
+			getline(cin,fechaIni);
+			c.setFechaIni(fechaIni);
+			cout<<endl;
+
+			//fflush(stdin);
+			cout<<"Ingresa la fecha fin del curso: ";
+			getline(cin,fechaFin);
+			c.setFechaFin(fechaFin);
+			cout<<endl;
+
+			//fflush(stdin);
+			cout<<"Introduce una breve descripcion del curso: ";
+			getline(cin,desc);
+			c.setFechaFin(fechaFin);
+			cout<<endl;
+
+			//fflush(stdin);
+			cout<<"Ingresa el aforo del curso: ";
+			getline(cin,aforo);
+			c.setAforo(stoi(aforo));
+			cout<<endl;
+			c.volcar_curso(c);
 			enter();
 			break;
 		case 2:
