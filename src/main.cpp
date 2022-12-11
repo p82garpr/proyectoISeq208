@@ -73,7 +73,7 @@ int main() {
 		//string dni,pass;
 		//alumno a;
 		do{
-			cout<<"\t\t\t ***Bienvenido al sistema, seleccione una opción***\t\t\t\n\n"<<endl;
+			cout<<"\t\t\t****Bienvenido al sistema, seleccione una opcion****\t\t\t\n\n"<<endl;
 			cout<<"1. Registrarme"<<endl;
 			cout<<"2. Iniciar sesion"<<endl;
 			cout<<"3. Entrar como visitante"<<endl;
@@ -353,6 +353,7 @@ void menu_alumno(string &dni){
 		case 2:
 			fflush(stdin);
 			cout<<"Introduce el ID del curso al que te quieres inscribir: "<<endl;
+			cin>>aux;
 			a.inscribir_curso(aux, dni);
 			break;
 		case 3:
