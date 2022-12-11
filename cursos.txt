@@ -1,16 +1,8 @@
 1
-dfsdfg
-fgfgf
-fgfgdf
-sdfdfgdf
+BASE DE DATOS
+pil
+pil
+breve descrip
 0
-23
-0
-2
-fftyj
-hjhjjk
-ghjkhjk
-hjkhjk
-0
-20
+200
 0

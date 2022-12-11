@@ -58,6 +58,7 @@ curso::curso(int id_curso, string nombre, string fecha_ini, string fecha_fin, st
 	id_curso_=id_curso;
 	nombre_=nombre;
 	fecha_ini_=fecha_ini;
+	fecha_fin_=fecha_fin;
 	descripcion_=descripcion;
 	estadistica_alcance_=estadistica_alcance;
 	aforo_=aforo;
@@ -136,13 +137,21 @@ void curso::volcar_curso(){
 		cout<<endl;
 
 		//fflush(stdin);
-		cout<<"Ingresa la fecha inicio del curso: ";
+		cout<<"Ingresa la fecha inicio del curso (con el siguiente formato: 04/09/15): ";
 		getline(cin,fechaIni);
+		if(fechaIni.size()!=8){
+			cout<<"No es un carácter válido, saliendo..."<<endl;
+			return;
+		}
 		cout<<endl;
 
 		//fflush(stdin);
-		cout<<"Ingresa la fecha fin del curso: ";
+		cout<<"Ingresa la fecha fin del curso (con el siguiente formato: 04/09/15): ";
 		getline(cin,fechaFin);
+		if(fechaFin.size()!=8){
+					cout<<"No es un carácter válido, saliendo..."<<endl;
+					return;
+				}
 		cout<<endl;
 
 		//fflush(stdin);
@@ -250,9 +259,17 @@ void curso::listarCursos(){
 }
 
 bool curso::buscar_curso(string id){
-	curso busca;
+	//curso busca;
 	string id_linea;
-	string aux;
+	//string aux;
+		string nombre;
+		string fechaIni;
+		string fechaFin;
+		string desc;
+		string aforo;
+		string statss;
+		string inscrr;
+		string registrados;
 	ifstream read;
 	read.open("Cursos.txt",ios::in);
 	cout<<endl;
@@ -261,16 +278,18 @@ bool curso::buscar_curso(string id){
 		read.seekg(0);
 		getline(read,id_linea);
 		while(!read.eof()){
-			getline(read,aux);
-			getline(read,aux);
-			getline(read,aux);
-			getline(read,aux);
-			getline(read,aux);
-			getline(read,aux);
-			getline(read,aux);
+			getline(read,nombre);
+			getline(read,fechaIni);
+			getline(read,fechaFin);
+			getline(read,desc);
+			getline(read,statss);
+			getline(read,inscrr);
+			getline(read,registrados);
 			if(id_linea==id){
 				encontrado=true;
 				read.close();
+				curso busca(stoi(id_linea),nombre,fechaIni,fechaFin,desc,stof(statss),stoi(inscrr),stoi(registrados));
+				mostrar(busca);
 				return encontrado;
 			}
 			getline(read,id_linea);

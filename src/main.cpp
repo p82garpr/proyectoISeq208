@@ -69,17 +69,21 @@ int main() {
 		case 1:
 			fflush(stdin);
 			c.volcar_curso();
+			enter();
 			break;
 		case 2:
 			c.listarCursos();
+			enter();
 			break;
 		case 3:
 			fflush(stdin);
 			a.registro();
+			enter();
 			break;
 		case 4:
 			fflush(stdin);
 			a.inicio_sesion_bbdd();
+			enter();
 			break;
 		case 5:
 			fflush(stdin);
@@ -95,6 +99,7 @@ int main() {
 			cin>>x;
 			if(c.buscar_curso(x)){
 				cout<<"ENCONTRADO!!"<<endl;
+
 			}else{
 				cout<<"NO ENCONTRADO!!"<<endl;
 			}
@@ -109,7 +114,7 @@ int main() {
 			fflush(stdin);
 			cout<<"Introduce el curso al que quieres registrarte: ";
 			cin>>y;
-			a.inscribir_curso(y, x); //IDCURSO, DNI
+			a.inscribir_curso(y, x);//IDCURSO, DNI
 			break;
 
 
@@ -120,6 +125,6 @@ int main() {
 
 
 void enter(){
-	cout<<"Presiona Enter para continuar...";
+	cout<<"Presiona Enter para continuar..."<<endl;
 	getchar();
 }

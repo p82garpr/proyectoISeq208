@@ -97,8 +97,12 @@ void alumno::registro(){
 		cout<<endl;
 
 		//fflush(stdin);
-		cout<<"Ingresa la fecha de nacimiento: ";
+		cout<<"Ingresa la fecha de nacimiento (con el siguiente formato: 04/09/15): ";
 		getline(cin,fechaNac);
+		if(fechaNac.size()!=8){
+							cout<<"No es un carácter válido, saliendo..."<<endl;
+							return;
+						}
 		cout<<endl;
 
 		//fflush(stdin);
@@ -253,8 +257,11 @@ alumno alumno::get_alumno(string ID){
 			}
 			if(read.eof()&&dniAux!=ID){
 			            encontrado=false;
-			            //return 0;
+
 			            return NotFound;
+			           // return;
+
+
 			        }
 		}while(encontrado==true);
 		read.close();
@@ -267,6 +274,12 @@ void alumno::Perfil(string DNI){
 	alumno perfil;
 	perfil.setDni(DNI);
 	perfil=perfil.get_alumno(DNI);
+	if(perfil.getUsuarioUco()=="empty"){
+		cout<<"No se ha encontrado el dni introducido"<<endl;
+				cout<<"saliendo..."<<endl;
+		return;
+	}
+
 	cout<<"DNI --------------------:"<<perfil.getDni()<<endl;
 	cout<<"Nombre completo --------:"<<perfil.getNombreCompleto()<<endl;
 	cout<<"Usuario UCO ------------:"<<perfil.getUsuarioUco()<<endl;
