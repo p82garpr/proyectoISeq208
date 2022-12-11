@@ -163,42 +163,7 @@ void curso::volcar_curso(){
 
 }
 
-void curso::agregarCurso(){
-	int idd,aforo;
-	string nombre;
-	string fecha_ini;
-	string fecha_fin;
-	string desc;
 
-
-	idd=getInt("Introduce ID del curso: ");
-	curso aux;
-	aux.setId(idd);
-	cin.ignore();
-	cout<<"\n Introduce el nombre del curso: ";
-	getline(cin,nombre);
-	cout<<"\n Introduce la fecha de inicio del curso: ";
-	getline(cin,fecha_ini);
-	cout<<"\n Introduce la fecha de fin del curso: ";
-	getline(cin,fecha_fin);
-	cout<<"\n Introduce la descripcion del cruso: ";
-	getline(cin,desc);
-	nombre=nombre.c_str();
-	aforo=getInt("Introduce el aforo del curso: ");
-	aux.setNombre(nombre);
-	aux.setFechaIni("12-12-12");
-	aux.setFechaFin(fecha_fin);
-	aux.setDescripcion(desc);
-	aux.setAforo(aforo);
-	aux.setEstadisticaAlcance(0.0);
-	aux.setAlumnosInscritos(0);
-	fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
-	e.seekp(0,ios::end);
-	mostrar(aux);
-	e.write((char*)&aux,sizeof(curso));
-	e.close();
-
-}
 
 void curso::listarCursos(){
 	curso CAux;

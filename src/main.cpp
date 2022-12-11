@@ -118,7 +118,7 @@ void menu_inicio(){
 		cin>>opcion;
 		switch(opcion){
 		case 1:
-			fflsuh(stdin);
+			fflush(stdin);
 			a.registro();
 			break;
 		case 2:

@@ -4,6 +4,7 @@
 #include "cute_runner.h"
 #include "usuario.h"
 #include "alumno.h"
+#include "curso.h"
 
 void thisIsATest() {
 	ASSERTM("start writing tests", false);
@@ -53,6 +54,42 @@ void testInicioSesion2(){
 
 }
 
+void testmostrarcurso(){
+
+	//THIS TEST IS DONE TO CHECK IF THE COURSE IS DISPLAYED CORRECTLY.
+	curso c;
+	c.setId(1);
+	c.setAlumnosInscritos(2);
+	c.setFechaIni("02-08-2022");
+	c.setFechaFin("09-08-2022");
+	c.setDescripcion("Prueba de curso");
+	c.setEstadisticaAlcance(2.5);
+	c.setAforo(20);
+
+	c.mostrar(c);
+
+}
+
+
+void testagregarcurso(){
+	/*PRE-CONDITION: FILE NAMED cursos.txt CREATED ON $PROJ_DIR */
+	//THIS TEST IS DONE TO CHECK IF FILES BBDD SYSTEM WORKS AS EXPECTED.
+	curso c;
+	c.setId(1);
+	c.setAlumnosInscritos(2);
+	c.setFechaIni("02-08-2022");
+	c.setFechaFin("09-08-2022");
+	c.setDescripcion("Prueba de curso");
+	c.setEstadisticaAlcance(2.5);
+	c.setAforo(20);
+
+	bool fileFindCourse= c.buscar_curso(to_string(c.getIdCurso()));
+	ASSERT(fileFindCourse== false);
+	c.volcar_curso();
+
+
+}
+
 
 
 
@@ -66,6 +103,7 @@ bool runAllTests(int argc, char const *argv[]) {
 	//HACER UN PUSHBACK PARA CADA PRUEBA
 	s.push_back(CUTE(testInicioSesion1));
 	s.push_back(CUTE(testInicioSesion2));
+	s.push_back(CUTE(testmostrarcurso));
 
 
 
