@@ -13,6 +13,7 @@
 
 
 
+
 void alumno::listar_cursos(){
 	/*list<string>::iterator it;
 	for(it=lista_cursos_.begin();it!=lista_cursos_.end();it++){
@@ -285,7 +286,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
  * LA ESTRUCTURA DEL FICHERO REGUSTROCRUSO, SERÁ:
  * DNI --solo se almacena el dni que esta registrado.
  * */
-	ofstream escritura, escritura2,escritura3;
+	ofstream escritura, escritura2;
 	ifstream verificador;
 	bool encontrado=false;
 	string dniAux;
@@ -294,17 +295,15 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 	verificador.open(documento,ios::in);
 	escritura.open(documento,ios::app);
 	escritura2.open("AlumnosRegistrados.txt",ios::app);
-	escritura3.open("cursos.txt",ios::app);
-	escritura3.close();
+	//escritura3.close();
 	escritura2.close();
 	escritura.close();
 	verificador.close();
 	verificador.open(documento,ios::in);
 	escritura.open(documento,ios::app);
 	escritura2.open("AlumnosRegistrados.txt",ios::app);
-	escritura3.open("cursos.txt",ios::app);
 
-	if(escritura.is_open() && verificador.is_open() && escritura2.is_open() && escritura3.is_open()){
+	if(escritura.is_open() && verificador.is_open() && escritura2.is_open()){
 		do{
 			verificador.seekg(0);
 			getline(verificador,dniAux);
@@ -317,7 +316,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 					escritura.close();
 					verificador.close();
 					escritura2.close();
-					escritura3.close();
+					//escritura3.close();
 					return;
 				}
 				getline(verificador,dniAux);
@@ -336,8 +335,11 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 
 
 		if(buscar_curso(IDCurso)>0){
-			escritura3.seekp(buscar_curso(IDCurso)*8);
-			escritura3<<cuenta_alumnos(IDCurso);
+			//escritura3.seekp(buscar_curso(IDCurso)*8);
+			//escritura3<<cuenta_alumnos(IDCurso);
+
+			modificar_inscritos(cuenta_alumnos(IDCurso),buscar_curso(IDCurso));
+
 
 
 		}
@@ -346,7 +348,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 	cout<<"Te has registrado correctamente"<<endl;
 	escritura.close();
 	escritura2.close();
-	escritura3.close();
+	//escritura3.close();
 	verificador.close();
 }
 
@@ -409,8 +411,7 @@ int alumno::buscar_alumno(string DNI,string &aux){
 
 //MODIFICAR ESTA FUNCION PARA PONER EL NUMERO DE INSCRITOS BIEN
 int alumno::cuenta_alumnos(string IDcurso){
-		bool encontrado=false;
-		int nregistro=0;
+			bool encontrado=false;
 			string linea;
 			string documento=IDcurso+"Registrados.txt";
 			int cont=0;
@@ -439,7 +440,7 @@ int alumno::cuenta_alumnos(string IDcurso){
 				}while(encontrado==true);
 			}
 			read.close();
-			return nregistro;
+			return cont;
 			//return 0;
 
 
@@ -502,6 +503,76 @@ int alumno::buscar_curso(string IDcurso){
 				return nregistro;
 }
 
+void alumno::modificar_inscritos(int inscritos, int nregistro){
+
+	string id;
+	string nombre;
+	string fechaIni;
+	string fechaFin;
+	string desc;
+	string stats;
+	string aforo;
+	string inscr;
+	//int inscrr;
+	int cont=0;
+	int contaux=0;
+	ifstream is;
+	is.open("cursos.txt", ios::in);
+	ofstream aux;
+	aux.open("auxiliar.txt",ios::app);
+	aux.close();
+	aux.open("auxiliar.txt",ios::app);
+
+	if(is.is_open() && aux.is_open()){
+		is.seekg(0);
+
+		while(!is.eof()){
+			getline(is,id);
+			getline(is,nombre);
+			getline(is,fechaIni);
+			getline(is,fechaFin);
+			getline(is,desc);
+			getline(is,stats);
+			getline(is,aforo);
+			getline(is,inscr);
+			//inscrr=stoi(inscr);
+			cont++;
+			if(cont==nregistro){
+				//if(inscrr!=inscritos){
+
+					if(contaux==0)
+						aux<<id<<"\n"<<nombre<<"\n"<<fechaIni<<"\n"<<fechaFin<<"\n"<<desc<<"\n"<<stats<<"\n"<<aforo<<"\n"<<inscritos;
+					else
+						aux<<"\n"<<id<<"\n"<<nombre<<"\n"<<fechaIni<<"\n"<<fechaFin<<"\n"<<desc<<"\n"<<stats<<"\n"<<aforo<<"\n"<<inscritos;
+
+					contaux++;
+
+
+			}else{
+				if(contaux==0)
+					aux<<id<<"\n"<<nombre<<"\n"<<fechaIni<<"\n"<<fechaFin<<"\n"<<desc<<"\n"<<stats<<"\n"<<aforo<<"\n"<<inscr;
+				else
+					aux<<"\n"<<id<<"\n"<<nombre<<"\n"<<fechaIni<<"\n"<<fechaFin<<"\n"<<desc<<"\n"<<stats<<"\n"<<aforo<<"\n"<<inscr;
+
+				contaux++;
+
+			}
+
+
+		}
+	}else
+		cout<<"ERROR DE FICHERO"<<endl;
+
+	is.close();
+	aux.close();
+	remove("cursos.txt");
+	rename("auxiliar.txt","cursos.txt");
+
+
+
+
+
+}
 /*
 alumno::alumno() {
 	// TODO Auto-generated constructor stub
