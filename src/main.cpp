@@ -154,14 +154,22 @@ void menu_admin(){
 			cout<<endl;
 
 			//fflush(stdin);
-			cout<<"Ingresa la fecha inicio del curso: ";
+			cout<<"Ingresa la fecha de inicio del curso (con el siguiente formato: DD/MM/YYYY): ";
 			getline(cin,fechaIni);
+			if(fechaIni.size()!=10){
+				cout<<"No es un carácter válido, saliendo..."<<endl;
+				return;
+			}
 			c.setFechaIni(fechaIni);
 			cout<<endl;
 
 			//fflush(stdin);
-			cout<<"Ingresa la fecha fin del curso: ";
+			cout<<"Ingresa la fecha de fin del curso (con el siguiente formato: DD/MM/YYYY): ";
 			getline(cin,fechaFin);
+			if(fechaFin.size()!=10){
+				cout<<"No es un carácter válido, saliendo..."<<endl;
+				return;
+			}
 			c.setFechaFin(fechaFin);
 			cout<<endl;
 

@@ -98,8 +98,12 @@ void alumno::registro(){
 		cout<<endl;
 
 		//fflush(stdin);
-		cout<<"Ingresa la fecha de nacimiento: ";
+		cout<<"Ingresa la fecha de nacimiento (con el siguiente formato: DD/MM/YYYY): ";
 		getline(cin,fechaNac);
+		if(fechaNac.size()!=10){
+			cout<<"No es un carácter válido, saliendo..."<<endl;
+			return;
+		}
 		cout<<endl;
 
 		//fflush(stdin);
