@@ -32,7 +32,7 @@ class alumno: public usuario{
 		void listar_cursos();
 		void registro();
 		//void inscribir_curso();
-		bool inicio_sesion_bbdd();
+		bool inicio_sesion_bbdd(string dni, string pass);
 		alumno get_alumno(string ID); //receives DNI and get a "struct" of the user found, if not, returns struct with USER "empty"
 		void Perfil(string DNI);
 		void inscribir_curso(string IDCurso,string DNI);

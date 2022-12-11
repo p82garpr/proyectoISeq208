@@ -138,19 +138,20 @@ void alumno::registro(){
 	verificador.close();
 }
 
-bool alumno::inicio_sesion_bbdd(){
+bool alumno::inicio_sesion_bbdd(string dni, string pass){
+	//TODO CHECK CIN REMOVED AND NOW PASSED THROUG PARAM
 
 	bool encontrado=false;
-	string dni;
-	string pass;
+	//string dni;
+	//string pass;
 
 	string aux;
 	string usuarioUCO;
-	cout<<"Introduce DNI: ";
-	getline(cin,dni);
+	//cout<<"Introduce DNI: ";
+	//getline(cin,dni);
 	string auxDNI=dni;
-	cout<<"Introduce contrasenia: ";
-	getline(cin,pass);
+	//cout<<"Introduce contrasenia: ";
+	//getline(cin,pass);
 	string passAux=pass;
 	ifstream read;
 	read.open("AlumnosRegistrados.txt",ios::in);
