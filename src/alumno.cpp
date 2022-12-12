@@ -283,7 +283,9 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 	verificador.open(documento,ios::in);
 	escritura.open(documento,ios::app);
 	escritura2.open("AlumnosRegistrados.txt", fstream::in |fstream::out | fstream::binary);
-	escaux.open("auxiliar.txt",ios::app);
+	escaux.open("auxiliar2.txt",ios::app);
+	escaux.close();
+	escaux.open("auxiliar2.txt",ios::app);
 
 
 
@@ -312,50 +314,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 		escritura<<DNI<<"\n";
 
 		//LECTURA
-		do{
-			escritura2.seekg(0);
-			getline(escritura2,dniAux);
-			//nregistro++;
-			while(!escritura2.eof())
-			{
-				/*
-				 * LA FORMA DE GUARDAR LOS REGISTROS ES:
-				 * 			DNI
-				 * 			NOMBRE COMPLETO
-				 * 			FECHA NAC
-				 * 			USUARIO UCO
-				 * 			CONTRASEÑA
-				 *			¿CURSOS REGISTRADOS?
-				 */
 
-				getline(escritura2,nombreCompleto);
-				getline(escritura2,fechaNac);
-				getline(escritura2,usuarioUCO);
-				getline(escritura2,pass);
-				//pos=read.tellg();
-				getline(escritura2,aux); //NUMERO DE CURSOS REGISTRADOS DEL ALUMNO X
-				//cout<<"EL DNI DEL FICHERO ES...:"<<dni<<endl;
-				//cout<<"LA PASS DEL FICHERO ES...:"<<pass<<endl;
-
-				if(DNI==dniAux){
-					aux=aux+IDCurso+", ";
-
-
-				}
-				if(contaux==0)
-					escaux<<dniAux<<"\n"<<nombreCompleto<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n"<<aux;
-				else
-					escaux<<"\n"<<dniAux<<"\n"<<nombreCompleto<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n"<<aux;
-
-				contaux++;
-				getline(escritura2,dniAux);
-				//nregistro++;
-			}
-			if(escritura2.eof()&&dniAux!=DNI){
-					  encontrado=false;
-
-			}
-		}while(encontrado==true);
 
 
 
@@ -373,19 +332,65 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 			escritura2<<"\n";
 
 			*/
+	}
 
+	do{
+				escritura2.seekg(0);
+				getline(escritura2,dniAux);
+				//nregistro++;
+				while(!escritura2.eof())
+				{
+					/*
+					 * LA FORMA DE GUARDAR LOS REGISTROS ES:
+					 * 			DNI
+					 * 			NOMBRE COMPLETO
+					 * 			FECHA NAC
+					 * 			USUARIO UCO
+					 * 			CONTRASEÑA
+					 *			¿CURSOS REGISTRADOS?
+					 */
 
+					getline(escritura2,nombreCompleto);
+					getline(escritura2,fechaNac);
+					getline(escritura2,usuarioUCO);
+					getline(escritura2,pass);
+					//pos=read.tellg();
+					getline(escritura2,aux); //NUMERO DE CURSOS REGISTRADOS DEL ALUMNO X
+					//cout<<"EL DNI DEL FICHERO ES...:"<<dni<<endl;
+					//cout<<"LA PASS DEL FICHERO ES...:"<<pass<<endl;
+					//cout<<"EL DNI QUE LEO ES..."<<dniAux<<endl;
+					//cout<<"EL DNI QUE TIENE QUE SER IGUAL ES..."<<DNI<<endl;
+					dniAux.pop_back();
+					if(dniAux==DNI){
+						if(contaux==0){
+							aux.pop_back();
+							aux=aux+IDCurso+", ";
+						}else{
+							aux=aux+IDCurso+", ";
+						}
+					}else{
+						//aux="NO HE ENTRADO AL IF DE LOS COJONES \n";
+					}
+					if(contaux==0)
+						escaux<<dniAux<<"\n"<<nombreCompleto<<fechaNac<<usuarioUCO<<pass<<aux;
+					else
+						escaux<<"\n"<<dniAux<<"\n"<<nombreCompleto<<fechaNac<<usuarioUCO<<pass<<aux;
 
-		}
+					contaux++;
+					getline(escritura2,dniAux);
+					//nregistro++;
+				}
+				if(escritura2.eof()&&dniAux!=DNI){
+						  encontrado=false;
+
+				}
+			}while(encontrado==true);
 
 
 		if(buscar_curso(IDCurso)>0){
 			//escritura3.seekp(buscar_curso(IDCurso)*8);
 			//escritura3<<cuenta_alumnos(IDCurso);
-
 			modificar_inscritos(cuenta_alumnos(IDCurso),buscar_curso(IDCurso));
-
-
 
 		}
 
@@ -397,8 +402,8 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 	//escritura3.close();
 	verificador.close();
 	escaux.close();
-	remove("AlumnosRegistrados.txt");
-	rename("auxiliar.txt","AlumnosRegistrados.txt");
+	//remove("AlumnosRegistrados.txt");
+	//rename("auxiliar.txt","AlumnosRegistrados.txt");
 }
 
 //FUNCION QUE DEVUELVE EL NUMERO DE REGISTRO DONDE SE ENCUENTRA EL ALUMNO
