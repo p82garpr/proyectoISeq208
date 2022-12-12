@@ -21,7 +21,7 @@ void alumno::listar_cursos(){
 	}*/
 }
 
-void alumno::registro(){
+bool alumno::registro(alumno alumno){
 
 	ofstream escritura;
 	ifstream verificador;
@@ -30,7 +30,7 @@ void alumno::registro(){
 	string usuarioUCO;
 	string nombre;
 	string fechaNac;
-	string dni;
+	string dni=alumno.getDni();
 	string pass;
 	string pass2;
 	string CURSOS;
@@ -51,12 +51,9 @@ void alumno::registro(){
 	escritura.open("AlumnosRegistrados.txt",ios::app);
 
 	if(escritura.is_open() && verificador.is_open()){
-		cout<<"\t ***Registro de usuario ***\t\n\n";
-		//fflush(stdin);
-		cout<<"Ingresa dni : ";
-		getline(cin,dni);
+
 		string auxID=dni;
-		cout<<endl;
+
 		do{
 			verificador.seekg(0);
 			getline(verificador,dni);
@@ -70,6 +67,7 @@ void alumno::registro(){
 				getline(verificador,CURSOS);
 				cont++;//LISTA DE CURSOS
 				//getline(verificador,inscrr);
+
 				if(dni==auxID){
 					encontrado=true;
 					cout<<"YA EXISTE UN USUARIO CON ESE DNI \n";
@@ -78,68 +76,40 @@ void alumno::registro(){
 					//break;
 
 					cout<<"saliendo..."<<endl; //ENTRA EN BUCLE CUANDO PIDO OTRO
-					return;
+					return false;
 
 				}
+
 				getline(verificador,dni);
 			}
+
 			if(verificador.eof()&&auxID!=dni){
 				encontrado=false;
 			}
+
 		}while(encontrado==true);
 		dni=auxID;
-		//fflush(stdin);
-		cout<<"Ingresa el nombre de usuario UCO: ";
-		getline(cin,usuarioUCO);
-		cout<<endl;
-
-		cout<<"Ingresa el nombre completo: ";
-		getline(cin,nombre);
-		cout<<endl;
-
-		//fflush(stdin);
-		cout<<"Ingresa la fecha de nacimiento (con el siguiente formato: DD/MM/YYYY): ";
-		getline(cin,fechaNac);
-		if(fechaNac.size()!=10){
-			cout<<"No es un carácter válido, saliendo..."<<endl;
-			return;
-		}
-		cout<<endl;
-
-		//fflush(stdin);
-		/*
-		cout<<"Ingresa el DNI: ";
-		getline(cin,dni);
-		cout<<endl;*/
-
-		//fflush(stdin);
-		cout<<"Introduce una contrasena: ";
-		getline(cin,pass);
-		cout<<endl;
-		cout<<"Introduce de nuevo una contrasena: ";
-		getline(cin,pass2);
-		cout<<endl;
-		if(pass!=pass2){
-			do{
-				cout<<"Las contrasenas no coinciden, insertela de nuevo: "<<endl;
-				getline(cin,pass2);
-			}while(pass!=pass2);
-		}
 
 		verificador.seekg(0);
-		string x;
+		//string x;
 		//fflush(stdin);
 		//METER /N Y COMPROBRAR QUE EL PRIMER REGISTRO NO TENGA /N
 		if(cont==0)
-			escritura<<dni<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n";
+			escritura<<alumno.getDni()<<"\n"<<alumno.getNombreCompleto()<<"\n"<<alumno.getFechaNacimiento()<<"\n"<<alumno.getUsuarioUco()<<"\n"<<alumno.getContrasena()<<"\n";
 		else
-			escritura<<"\n"<<dni<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n";
+			escritura<<"\n"<<alumno.getDni()<<"\n"<<alumno.getNombreCompleto()<<"\n"<<alumno.getFechaNacimiento()<<"\n"<<alumno.getUsuarioUco()<<"\n"<<alumno.getContrasena()<<"\n";
 
+	}
+	else{
+		cout<<"No se ha podido registrar"<<endl;
+		cout<<"Saliendo..."<<endl;
+		return false;
 	}
 	//cout<<id<<endl;
 	cout<<"Se ha añadido correctamente el usuario"<<endl;
 	escritura.close();
 	verificador.close();
+	return true;
 }
 
 bool alumno::inicio_sesion_bbdd(string dni, string pass){
@@ -505,7 +475,7 @@ int alumno::buscar_curso(string IDcurso){
 					}while(encontrado==true);
 				}
 				read.close();
-				return nregistro;
+				return 0;
 }
 
 void alumno::modificar_inscritos(int inscritos, int nregistro){

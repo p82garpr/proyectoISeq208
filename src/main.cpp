@@ -37,7 +37,10 @@ int main() {
 	alumno a;
 	//visitante v;
 	string dni, pass;
-
+	string userUco;
+	string nombre;
+	string fechaNac;
+	string pass2;
 		int opcion,modo,vuelve;
 		system(CLEAR);
 		do{
@@ -49,12 +52,54 @@ int main() {
 			cout<<"4. Salir del sistema"<<endl;
 			cin>>opcion;
 			switch(opcion){
-			case 1:
-				fflush(stdin);
-				a.registro();
-				enter();
-				vuelve=1;
-				break;
+				case 1:
+					fflush(stdin);
+					cout<<"\t Registro de usuario \t\n\n";
+					//fflush(stdin);
+					cout<<"Ingresa dni : ";
+					getline(cin,dni);
+					cout<<endl;
+
+					a.setDni(dni);
+					if(a.getDni()=="error")
+						break;
+
+					cout<<"Ingresa el nombre de usuario UCO: "<<endl;
+					getline(cin,userUco);
+					a.setUsuarioUco(userUco);
+					cout<<endl;
+
+					cout<<"Ingresa el nombre completo: ";
+					getline(cin,nombre);
+					a.setNombreCompleto(nombre);
+					cout<<endl;
+
+					cout<<"Ingresa la fecha de nacimiento (con el siguiente formato: DD/MM/YYYY): ";
+					getline(cin,fechaNac);
+
+					a.setFechaNacimiento(fechaNac);
+					cout<<endl;
+					if(a.getFechaNacimiento()=="error")
+						break;
+
+					cout<<"Introduce una contrasena: ";
+					getline(cin,pass);
+					cout<<endl;
+					cout<<"Introduce de nuevo una contrasena: ";
+					getline(cin,pass2);
+					cout<<endl;
+					if(pass!=pass2){
+						do{
+							cout<<"Las contrasenas no coinciden, insertela de nuevo: "<<endl;
+							getline(cin,pass2);
+						}while(pass!=pass2);
+					}
+					a.setContrasena(pass);
+					a.registro(a);
+					enter();
+					vuelve=1;
+					break;
+
 			case 2:
 				system(CLEAR);
 				fflush(stdin);
@@ -130,6 +175,10 @@ void menu_admin(){
 	string inscrr;
 	int inscr=0;
 	float stats=0.0;
+	string dni, pass;
+	string userUco;
+	string fechaNac;
+	string pass2;
 	system(CLEAR);
 	cout<<"\t\t\t***BIENVENIDO AL MENU DE ADMINISTRADOR***\t\t\t\n\n";
 	do{
@@ -194,8 +243,52 @@ void menu_admin(){
 			break;
 		case 3:
 			fflush(stdin);
-			a.registro();
+			cout<<"\t Registro de usuario \t\n\n";
+			//fflush(stdin);
+			cout<<"Ingresa dni : ";
+			getline(cin,dni);
+			cout<<endl;
+
+			a.setDni(dni);
+			if(a.getDni()=="error")
+				break;
+
+			cout<<"Ingresa el nombre de usuario UCO: "<<endl;
+			getline(cin,userUco);
+			a.setUsuarioUco(userUco);
+			cout<<endl;
+
+			cout<<"Ingresa el nombre completo: ";
+			getline(cin,nombre);
+			a.setNombreCompleto(nombre);
+			cout<<endl;
+
+			cout<<"Ingresa la fecha de nacimiento (con el siguiente formato: DD/MM/YYYY): ";
+			getline(cin,fechaNac);
+
+			a.setFechaNacimiento(fechaNac);
+			cout<<endl;
+			if(a.getFechaNacimiento()=="error")
+				break;
+
+			cout<<"Introduce una contrasena: ";
+			getline(cin,pass);
+			cout<<endl;
+			cout<<"Introduce de nuevo una contrasena: ";
+			getline(cin,pass2);
+			cout<<endl;
+			if(pass!=pass2){
+				do{
+					cout<<"Las contrasenas no coinciden, insertela de nuevo: "<<endl;
+					getline(cin,pass2);
+				}while(pass!=pass2);
+			}
+			a.setContrasena(pass);
+			a.registro(a);
 			enter();
+
+
+
 			break;
 		case 4:
 			cout<<"Saliendo..."<<endl;

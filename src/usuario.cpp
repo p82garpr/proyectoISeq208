@@ -22,6 +22,27 @@ usuario::usuario(string usuario_uco,
 	contrasena_=contrasena;
 
 }
+
+void usuario::setDni(const string &dni){
+	if(dni.size()!=10){
+		cout<<"Dni invalido, vuelva a intentarlo"<<endl;
+		cout<<"Saliendo..."<<endl;
+		dni_="error";
+
+	}else
+		dni_=dni;
+}
+
+void usuario::setFechaNacimiento(const string &fechaNacimiento){
+	if(fechaNacimiento.size()!=10){
+		cout<<"Dni invalido, vuelva a intentarlo"<<endl;
+		cout<<"Saliendo..."<<endl;
+		fecha_nacimiento_="error";
+
+	}else
+		fecha_nacimiento_=fechaNacimiento;
+}
+
 bool usuario::iniciar_sesion(string id, string pass){
 	if((id==dni_ || id==usuario_uco_ ) && pass==contrasena_){
 		return true;
@@ -29,6 +50,8 @@ bool usuario::iniciar_sesion(string id, string pass){
 		return false;
 	}
 }
+
+
 
 
 /*

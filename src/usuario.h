@@ -35,11 +35,11 @@ public:
 
 	inline const string& getDni() const {return dni_;}
 
-	inline void setDni(const string &dni) {	dni_ = dni;}
+	void setDni(const string &dni);
 
 	inline const string& getFechaNacimiento() const {return fecha_nacimiento_;}
 
-	inline void setFechaNacimiento(const string &fechaNacimiento) {fecha_nacimiento_ = fechaNacimiento;}
+	void setFechaNacimiento(const string &fechaNacimiento);
 
 	inline const string& getNombreCompleto() const {return nombre_completo_;}
 

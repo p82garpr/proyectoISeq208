@@ -30,7 +30,7 @@ class alumno: public usuario{
 		inline void setListaCursos(string lista){lista_cursos_=lista;}
 		inline string& getListaCursos(){return lista_cursos_;}
 		void listar_cursos();
-		void registro();
+		bool registro(alumno a);
 		//void inscribir_curso();
 		bool inicio_sesion_bbdd(string dni, string pass);
 		alumno get_alumno(string ID); //receives DNI and get a "struct" of the user found, if not, returns struct with USER "empty"
