@@ -36,7 +36,7 @@ class alumno: public usuario{
 		alumno get_alumno(string ID); //receives DNI and get a "struct" of the user found, if not, returns struct with USER "empty"
 		void Perfil(string DNI);
 		void inscribir_curso(string IDCurso,string DNI);
-		int buscar_alumno(string DNI, string &aux);
+		long buscar_alumno(string DNI, string &aux);
 		int cuenta_alumnos(string IDcurso);
 		int buscar_curso(string IDcurso);
 		void modificar_inscritos(int inscritos, int nregistro);
