@@ -36,10 +36,10 @@ int main() {
 	curso c;
 	alumno a;
 	//visitante v;
-	string dni, pass;
+	string dni="error", pass;
 	string userUco;
 	string nombre;
-	string fechaNac;
+	string fechaNac="error";
 	string pass2;
 		int opcion,modo,vuelve;
 		system(CLEAR);
@@ -56,13 +56,15 @@ int main() {
 					fflush(stdin);
 					cout<<"\t Registro de usuario \t\n\n";
 					//fflush(stdin);
-					cout<<"Ingresa dni : ";
-					getline(cin,dni);
-					cout<<endl;
+					while(dni=="error"){
+						cout<<"Ingresa dni : ";
+						getline(cin,dni);
+						cout<<endl;
 
-					a.setDni(dni);
-					if(a.getDni()=="error")
-						break;
+						a.setDni(dni);
+						dni=a.getDni();
+					}
+
 
 					cout<<"Ingresa el nombre de usuario UCO: "<<endl;
 					getline(cin,userUco);
@@ -73,14 +75,16 @@ int main() {
 					getline(cin,nombre);
 					a.setNombreCompleto(nombre);
 					cout<<endl;
+					while(fechaNac=="error"){
+						cout<<"Ingresa la fecha de nacimiento (con el siguiente formato: DD/MM/YYYY): ";
+						getline(cin,fechaNac);
 
-					cout<<"Ingresa la fecha de nacimiento (con el siguiente formato: DD/MM/YYYY): ";
-					getline(cin,fechaNac);
 
-					a.setFechaNacimiento(fechaNac);
-					cout<<endl;
-					if(a.getFechaNacimiento()=="error")
-						break;
+						a.setFechaNacimiento(fechaNac);
+						cout<<endl;
+						fechaNac=a.getFechaNacimiento();
+					}
+
 
 					cout<<"Introduce una contrasena: ";
 					getline(cin,pass);
@@ -96,8 +100,11 @@ int main() {
 					}
 					a.setContrasena(pass);
 					a.registro(a);
+					dni="error";
+					fechaNac="error";
 					enter();
 					vuelve=1;
+
 					break;
 
 			case 2:
@@ -167,14 +174,14 @@ void menu_admin(){
 	alumno a;
 	string id;
 	string nombre;
-	string fechaIni;
-	string fechaFin;
+	string fechaIni="error";
+	string fechaFin="error";
 	string desc;
 	string aforo;
 	string statss;
 	string inscrr;
-	int inscr=0;
-	float stats=0.0;
+	//int inscr=0;
+	//float stats=0.0;
 	string dni, pass;
 	string userUco;
 	string fechaNac;
@@ -203,29 +210,31 @@ void menu_admin(){
 			cout<<endl;
 
 			//fflush(stdin);
-			cout<<"Ingresa la fecha de inicio del curso (con el siguiente formato: DD/MM/YYYY): ";
-			getline(cin,fechaIni);
-			if(fechaIni.size()!=10){
-				cout<<"No es un carácter válido, saliendo..."<<endl;
-				return;
+			while(fechaIni=="error"){
+				cout<<"Ingresa la fecha de inicio del curso (con el siguiente formato: DD/MM/YYYY): ";
+				getline(cin,fechaIni);
+
+				c.setFechaIni(fechaIni);
+
+				cout<<endl;
+				fechaIni=c.getFechaIni();
 			}
-			c.setFechaIni(fechaIni);
-			cout<<endl;
 
 			//fflush(stdin);
-			cout<<"Ingresa la fecha de fin del curso (con el siguiente formato: DD/MM/YYYY): ";
-			getline(cin,fechaFin);
-			if(fechaFin.size()!=10){
-				cout<<"No es un carácter válido, saliendo..."<<endl;
-				return;
+			while(fechaFin=="error"){
+				cout<<"Ingresa la fecha de fin del curso (con el siguiente formato: DD/MM/YYYY): ";
+				getline(cin,fechaFin);
+
+				c.setFechaFin(fechaFin);
+
+				cout<<endl;
+				fechaFin=c.getFechaFin();
 			}
-			c.setFechaFin(fechaFin);
-			cout<<endl;
 
 			//fflush(stdin);
 			cout<<"Introduce una breve descripcion del curso: ";
 			getline(cin,desc);
-			c.setFechaFin(fechaFin);
+			c.setDescripcion(desc);
 			cout<<endl;
 
 			//fflush(stdin);
@@ -234,6 +243,8 @@ void menu_admin(){
 			c.setAforo(stoi(aforo));
 			cout<<endl;
 			c.volcar_curso(c);
+			fechaIni="error";
+			fechaFin="error";
 			enter();
 			break;
 		case 2:
@@ -245,13 +256,15 @@ void menu_admin(){
 			fflush(stdin);
 			cout<<"\t Registro de usuario \t\n\n";
 			//fflush(stdin);
-			cout<<"Ingresa dni : ";
-			getline(cin,dni);
-			cout<<endl;
+			while(dni=="error"){
+				cout<<"Ingresa dni : ";
+				getline(cin,dni);
+				cout<<endl;
 
-			a.setDni(dni);
-			if(a.getDni()=="error")
-				break;
+				a.setDni(dni);
+				dni=a.getDni();
+			}
+
 
 			cout<<"Ingresa el nombre de usuario UCO: "<<endl;
 			getline(cin,userUco);
@@ -262,14 +275,16 @@ void menu_admin(){
 			getline(cin,nombre);
 			a.setNombreCompleto(nombre);
 			cout<<endl;
+			while(fechaNac=="error"){
+				cout<<"Ingresa la fecha de nacimiento (con el siguiente formato: DD/MM/YYYY): ";
+				getline(cin,fechaNac);
 
-			cout<<"Ingresa la fecha de nacimiento (con el siguiente formato: DD/MM/YYYY): ";
-			getline(cin,fechaNac);
 
-			a.setFechaNacimiento(fechaNac);
-			cout<<endl;
-			if(a.getFechaNacimiento()=="error")
-				break;
+				a.setFechaNacimiento(fechaNac);
+				cout<<endl;
+				fechaNac=a.getFechaNacimiento();
+			}
+
 
 			cout<<"Introduce una contrasena: ";
 			getline(cin,pass);
@@ -285,11 +300,11 @@ void menu_admin(){
 			}
 			a.setContrasena(pass);
 			a.registro(a);
+			dni="error";
+			fechaNac="error";
 			enter();
-
-
-
 			break;
+
 		case 4:
 			cout<<"Saliendo..."<<endl;
 			return;

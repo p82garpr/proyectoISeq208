@@ -57,13 +57,47 @@ string getString(string msj){
 curso::curso(int id_curso, string nombre, string fecha_ini, string fecha_fin, string descripcion, float estadistica_alcance,int aforo, int alumnos_inscritos) {
 	id_curso_=id_curso;
 	nombre_=nombre;
-	fecha_ini_=fecha_ini;
+	if(fecha_ini.size()!=10){
+				cout<<"Fecha invalida, vuelva a intentarlo"<<endl;
+				cout<<"Saliendo..."<<endl;
+				fecha_ini_="error";
+
+			}else
+				fecha_ini_=fecha_ini;
+	if(fecha_fin.size()!=10){
+				cout<<"Fecha invalida, vuelva a intentarlo"<<endl;
+				cout<<"Saliendo..."<<endl;
+				fecha_fin_="error";
+
+			}else
+				fecha_fin_=fecha_fin;
+
 	descripcion_=descripcion;
 	estadistica_alcance_=estadistica_alcance;
 	aforo_=aforo;
 	alumnos_inscritos_=alumnos_inscritos;
 
 }
+
+void curso::setFechaIni(const string &fechaIni){
+	if(fechaIni.size()!=10){
+		cout<<"Fecha invalida, vuelva a intentarlo"<<endl;
+		fecha_ini_="error";
+
+	}else
+		fecha_ini_=fechaIni;
+}
+
+void curso::setFechaFin(const string &fechaFin){
+	if(fechaFin.size()!=10){
+		cout<<"Fecha invalida, vuelva a intentarlo"<<endl;
+		fecha_fin_="error";
+
+	}else
+		fecha_fin_=fechaFin;
+}
+
+
 
 void curso::mostrar_informacion(int id_curso){
 	//select * from curso where id=id_curso
@@ -144,43 +178,6 @@ bool curso::volcar_curso(curso c){
 	verificador.close();
 	return true;
 
-
-}
-
-void curso::agregarCurso(){
-	int idd,aforo;
-	string nombre;
-	string fecha_ini;
-	string fecha_fin;
-	string desc;
-
-
-	idd=getInt("Introduce ID del curso: ");
-	curso aux;
-	aux.setId(idd);
-	cin.ignore();
-	cout<<"\n Introduce el nombre del curso: ";
-	getline(cin,nombre);
-	cout<<"\n Introduce la fecha de inicio del curso: ";
-	getline(cin,fecha_ini);
-	cout<<"\n Introduce la fecha de fin del curso: ";
-	getline(cin,fecha_fin);
-	cout<<"\n Introduce la descripcion del cruso: ";
-	getline(cin,desc);
-	nombre=nombre.c_str();
-	aforo=getInt("Introduce el aforo del curso: ");
-	aux.setNombre(nombre);
-	aux.setFechaIni("12-12-12");
-	aux.setFechaFin(fecha_fin);
-	aux.setDescripcion(desc);
-	aux.setAforo(aforo);
-	aux.setEstadisticaAlcance(0.0);
-	aux.setAlumnosInscritos(0);
-	fstream e("Cursos.txt", ios::out | ios::in | ios::binary);
-	e.seekp(0,ios::end);
-	mostrar(aux);
-	e.write((char*)&aux,sizeof(curso));
-	e.close();
 
 }
 

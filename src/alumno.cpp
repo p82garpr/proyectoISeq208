@@ -45,7 +45,11 @@ bool alumno::registro(alumno alumno){
 	 * 			CONTRASEÑA
 	 *			¿CURSOS REGISTRADOS?
 	 */
-
+	if(dni=="error" || alumno.getFechaNacimiento()=="error"){
+		cout<<"No se ha podido registrar"<<endl;
+		cout<<"Saliendo..."<<endl;
+		return false;
+	}
 
 	verificador.open("AlumnosRegistrados.txt",ios::in);
 	escritura.open("AlumnosRegistrados.txt",ios::app);
@@ -111,6 +115,7 @@ bool alumno::registro(alumno alumno){
 	verificador.close();
 	return true;
 }
+
 
 bool alumno::inicio_sesion_bbdd(string dni, string pass){
 	//TODO CHECK CIN REMOVED AND NOW PASSED THROUG PARAM
@@ -250,7 +255,7 @@ void alumno::Perfil(string DNI){
 	cout<<"Cursos registrado ------:"<<perfil.getListaCursos()<<endl;
 }
 
-
+/*
 void alumno::inscribir_curso(string IDCurso, string DNI){
 	curso c;
 	if(!c.buscar_curso(IDCurso)){
@@ -260,10 +265,10 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 /*
  * LA ESTRUCTURA DEL FICHERO REGUSTROCRUSO, SERÁ:
  * DNI --solo se almacena el dni que esta registrado.
- * */
-	ofstream escritura,escaux;
+ *
+	ofstream escritura;//escaux;
 	ifstream verificador;
-	fstream escritura2;
+	//fstream escritura2;
 	bool encontrado=false;
 	int contaux=0;
 	string dniAux;
@@ -275,19 +280,19 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 	string pass;
 	verificador.open(documento,ios::in);
 	escritura.open(documento,ios::app);
-	escritura2.open("AlumnosRegistrados.txt",ios::app);
+	//escritura2.open("AlumnosRegistrados.txt",ios::app);
 	//escritura3.close();
-	escritura2.close();
+	//escritura2.close();
 	escritura.close();
 	verificador.close();
 	verificador.open(documento,ios::in);
 	escritura.open(documento,ios::app);
-	escritura2.open("AlumnosRegistrados.txt", fstream::in |fstream::out | fstream::binary);
-	escaux.open("auxiliar.txt",ios::app);
+	//escritura2.open("AlumnosRegistrados.txt", fstream::in |fstream::out | fstream::binary);
+	//escaux.open("auxiliar.txt",ios::app);
 
 
 
-	if(escritura.is_open() && verificador.is_open() && escritura2.is_open()){
+	if(escritura.is_open() && verificador.is_open() /*&& escritura2.is_open()){
 		do{
 			verificador.seekg(0);
 			getline(verificador,dniAux);
@@ -299,7 +304,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 					cout<<"saliendo..."<<endl; //ENTRA EN BUCLE CUANDO PIDO OTRO
 					escritura.close();
 					verificador.close();
-					escritura2.close();
+					//escritura2.close();
 					//escritura3.close();
 					return;
 				}
@@ -311,14 +316,16 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 		}while(encontrado==true);
 		escritura<<DNI<<"\n";
 
-		//LECTURA
+		/*
+		 *
+		 *LECTURA
 		do{
 			escritura2.seekg(0);
 			getline(escritura2,dniAux);
 			//nregistro++;
 			while(!escritura2.eof())
 			{
-				/*
+				*
 				 * LA FORMA DE GUARDAR LOS REGISTROS ES:
 				 * 			DNI
 				 * 			NOMBRE COMPLETO
@@ -326,7 +333,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 				 * 			USUARIO UCO
 				 * 			CONTRASEÑA
 				 *			¿CURSOS REGISTRADOS?
-				 */
+
 
 				getline(escritura2,nombreCompleto);
 				getline(escritura2,fechaNac);
@@ -357,7 +364,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 			}
 		}while(encontrado==true);
 
-
+		*/
 
 
 			/*
@@ -372,7 +379,7 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 			cout<<"si";
 			escritura2<<"\n";
 
-			*/
+
 
 
 
@@ -393,12 +400,179 @@ void alumno::inscribir_curso(string IDCurso, string DNI){
 
 	cout<<"Te has registrado correctamente"<<endl;
 	escritura.close();
-	escritura2.close();
+	//escritura2.close();
 	//escritura3.close();
 	verificador.close();
-	escaux.close();
+	//escaux.close();
+	//remove("AlumnosRegistrados.txt");
+	//rename("auxiliar.txt","AlumnosRegistrados.txt");
+}
+*/
+
+bool alumno::inscribir_curso(string IDCurso, string DNI){
+	curso c;
+	if(!c.buscar_curso(IDCurso)){
+		cout<<"Curso no disponible o no encontrado, saliendo..."<<endl;
+		return false;
+	}
+/*
+ * LA ESTRUCTURA DEL FICHERO REGUSTROCRUSO, SERÁ:
+ * DNI --solo se almacena el dni que esta registrado.
+ * */
+	ofstream escritura;
+	ifstream verificador;
+	bool encontrado=false;
+	string dniAux;
+	string aux;
+	string documento=IDCurso + "Registrados.txt";
+	verificador.open(documento,ios::in);
+	escritura.open(documento,ios::app);
+	//escritura2.open("AlumnosRegistrados.txt",ios::app);
+	//escritura3.close();
+	//escritura2.close();
+	escritura.close();
+	verificador.close();
+	verificador.open(documento,ios::in);
+	escritura.open(documento,ios::app);
+	//escritura2.open("AlumnosRegistrados.txt",ios::app);
+
+	if(escritura.is_open() && verificador.is_open() ){
+		do{
+			verificador.seekg(0);
+			getline(verificador,dniAux);
+			while(!verificador.eof())
+			{
+				if(DNI==dniAux){
+					encontrado=true;
+					cout<<"YA ESTAS REGISTRADO EN ESTE CURSO \n";
+					cout<<"saliendo..."<<endl; //ENTRA EN BUCLE CUANDO PIDO OTRO
+					escritura.close();
+					verificador.close();
+					//escritura2.close();
+					//escritura3.close();
+					return false;
+				 }
+
+				getline(verificador,dniAux);
+			}
+
+			if(verificador.eof()&&dniAux!=DNI){
+				encontrado=false;
+			}
+
+		}while(encontrado==true);
+		escritura<<DNI<<"\n";
+
+		if(buscar_alumno(DNI,aux)>0){
+			//escritura2.seekp(buscar_alumno(DNI,aux)*6);
+
+			//escritura2<<IDCurso+",";
+			string x="";
+			x=IDCurso+",";
+			setListaCursos(x);
+			cout<<x<<endl;
+			//escritura2.close();
+			modificar_listacursos(x,DNI);
+			//escritura2<<getListaCursos();
+		}
+
+
+		if(buscar_curso(IDCurso)>0){
+			//escritura3.seekp(buscar_curso(IDCurso)*8);
+			//escritura3<<cuenta_alumnos(IDCurso);
+
+			modificar_inscritos(cuenta_alumnos(IDCurso),buscar_curso(IDCurso));
+
+		}
+
+	}
+	else{
+		cout<<"No se ha podido crear"<<endl;
+		cout<<"Saliendo..."<<endl;
+		escritura.close();
+		verificador.close();
+		return false;
+	}
+	cout<<"Te has registrado correctamente"<<endl;
+	escritura.close();
+	//escritura2.close();
+	//escritura3.close();
+	verificador.close();
+	return true;
+}
+
+void alumno::modificar_listacursos(string cadaux, string Dni){
+
+	string dniaux;
+	string nombre;
+	string fechaNac;
+	string usuarioUCO;
+	string pass;
+	string listacursos="";
+
+	int cont=0;
+	int contaux=0;
+	ifstream is;
+	is.open("AlumnosRegistrados.txt", ios::in);
+	ofstream aux;
+	aux.open("pepe.txt",ios::out);
+	aux.close();
+	aux.open("pepe.txt",ios::out);
+
+	if(is.is_open() && aux.is_open()){
+		is.seekg(0);
+
+		while(!is.eof()){
+			getline(is,dniaux);
+			cout<<dniaux<<endl;
+			getline(is,nombre);
+			cout<<nombre<<endl;
+			getline(is,fechaNac);
+			cout<<fechaNac<<endl;
+			getline(is,usuarioUCO);
+			cout<<usuarioUCO<<endl;
+			getline(is,pass);
+			cout<<pass<<endl;
+			getline(is,listacursos);
+			cout<<listacursos<<endl;
+
+			cont++;
+			if(dniaux==Dni){
+				//if(inscrr!=inscritos){
+				cout<<listacursos+"hola"<<endl;
+				cout<<cadaux<<endl;
+					if(contaux==0)
+						aux<<dniaux<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n"<<listacursos+cadaux;
+					else
+						aux<<"\n"<<dniaux<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n"<<listacursos+cadaux;
+
+					contaux++;
+
+
+			}else{
+				if(contaux==0)
+					aux<<dniaux<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n"<<listacursos;
+				else
+					aux<<"\n"<<dniaux<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n"<<listacursos;
+
+				contaux++;
+
+			}
+
+
+		}
+	}else
+		cout<<"ERROR DE FICHERO"<<endl;
+
+	is.close();
+	aux.close();
 	remove("AlumnosRegistrados.txt");
-	rename("auxiliar.txt","AlumnosRegistrados.txt");
+	rename("pepe.txt","AlumnosRegistrados.txt");
+
+
+
+
+
 }
 
 //FUNCION QUE DEVUELVE EL NUMERO DE REGISTRO DONDE SE ENCUENTRA EL ALUMNO

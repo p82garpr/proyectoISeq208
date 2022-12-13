@@ -25,7 +25,7 @@ private:
 public:
 
 
-	curso(int id_curso=0, string nombre="empty", string fecha_ini="00/00/00", string fecha_fin="00/00/00", string descripcion="empty", float estadistica_alcance=0.0,int aforo=100, int alumnos_inscritos=0);
+	curso(int id_curso=0, string nombre="empty", string fecha_ini="00/00/0000", string fecha_fin="00/00/0000", string descripcion="empty", float estadistica_alcance=0.0,int aforo=100, int alumnos_inscritos=0);
 	virtual ~curso();
 
 	//GETTERS Y SETTERS
@@ -44,11 +44,11 @@ public:
 
 	inline const string& getFechaFin() const {return fecha_fin_;}
 
-	inline void setFechaFin(const string &fechaFin) {fecha_fin_ = fechaFin;}
+	void setFechaFin(const string &fechaFin);
 
 	inline const string& getFechaIni() const {return fecha_ini_;}
 
-	inline void setFechaIni(const string &fechaIni) {fecha_ini_ = fechaIni;}
+	void setFechaIni(const string &fechaIni);
 
 	inline int getIdCurso() const {return id_curso_;}
 

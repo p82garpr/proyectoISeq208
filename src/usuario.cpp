@@ -17,16 +17,26 @@ usuario::usuario(string usuario_uco,
 		string contrasena) {
 	usuario_uco_=usuario_uco;
 	nombre_completo_=nombre_completo;
-	fecha_nacimiento_=fecha_nacimiento;
-	dni_=dni;
+	if(fecha_nacimiento.size()!=10){
+			cout<<"Fecha invalida, vuelva a intentarlo"<<endl;
+			fecha_nacimiento_="error";
+
+		}else
+			fecha_nacimiento_=fecha_nacimiento;
+	if(dni.size()!=9){
+		cout<<"Dni invalido, vuelva a intentarlo"<<endl;
+		dni_="error";
+
+	}else
+		dni_=dni;
+
 	contrasena_=contrasena;
 
 }
 
 void usuario::setDni(const string &dni){
-	if(dni.size()!=10){
+	if(dni.size()!=9){
 		cout<<"Dni invalido, vuelva a intentarlo"<<endl;
-		cout<<"Saliendo..."<<endl;
 		dni_="error";
 
 	}else
@@ -35,8 +45,7 @@ void usuario::setDni(const string &dni){
 
 void usuario::setFechaNacimiento(const string &fechaNacimiento){
 	if(fechaNacimiento.size()!=10){
-		cout<<"Dni invalido, vuelva a intentarlo"<<endl;
-		cout<<"Saliendo..."<<endl;
+		cout<<"Fecha invalida, vuelva a intentarlo"<<endl;
 		fecha_nacimiento_="error";
 
 	}else

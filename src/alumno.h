@@ -21,8 +21,8 @@ class alumno: public usuario{
 		/*alumno(list<string> listacursos={ }){lista_cursos_=listacursos;}*/
 		inline alumno(string usuario_uco="",
 				string nombre_completo="",
-				string fecha_nacimiento="",
-				string dni="",
+				string fecha_nacimiento="00/00/0000",
+				string dni="00000000X",
 				string contrasena="",
 				string lista_cursos=""):usuario(usuario_uco,nombre_completo,fecha_nacimiento,dni,contrasena){lista_cursos_=lista_cursos;}
 		//virtual ~alumno();
@@ -35,7 +35,8 @@ class alumno: public usuario{
 		bool inicio_sesion_bbdd(string dni, string pass);
 		alumno get_alumno(string ID); //receives DNI and get a "struct" of the user found, if not, returns struct with USER "empty"
 		void Perfil(string DNI);
-		void inscribir_curso(string IDCurso,string DNI);
+		bool inscribir_curso(string IDCurso,string DNI);
+		void modificar_listacursos(string cadaux, string Dni);
 		long buscar_alumno(string DNI, string &aux);
 		int cuenta_alumnos(string IDcurso);
 		int buscar_curso(string IDcurso);
