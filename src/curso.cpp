@@ -123,6 +123,12 @@ bool curso::volcar_curso(curso c){
 	float stats=0.0;
 	int cont=0;
 
+	if(c.getFechaIni()=="error"|| c.getFechaFin()=="error"){
+		cout<<"No se ha podido registrar"<<endl;
+		cout<<"Saliendo..."<<endl;
+		return false;
+	}
+
 
 	verificador.open("cursos.txt",ios::in);
 	escritura.open("cursos.txt",ios::app);

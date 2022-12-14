@@ -481,7 +481,7 @@ bool alumno::inscribir_curso(string IDCurso, string DNI){
 			//escritura3.seekp(buscar_curso(IDCurso)*8);
 			//escritura3<<cuenta_alumnos(IDCurso);
 
-			modificar_inscritos(cuenta_alumnos(IDCurso),buscar_curso(IDCurso));
+			modificar_inscritos(cuenta_alumnos(IDCurso)+1,buscar_curso(IDCurso));
 
 		}
 
@@ -539,8 +539,7 @@ void alumno::modificar_listacursos(string cadaux, string Dni){
 			cont++;
 			if(dniaux==Dni){
 				//if(inscrr!=inscritos){
-				cout<<listacursos+"hola"<<endl;
-				cout<<cadaux<<endl;
+				setListaCursos(listacursos+cadaux);
 					if(contaux==0)
 						aux<<dniaux<<"\n"<<nombre<<"\n"<<fechaNac<<"\n"<<usuarioUCO<<"\n"<<pass<<"\n"<<listacursos+cadaux;
 					else
@@ -657,7 +656,7 @@ int alumno::cuenta_alumnos(string IDcurso){
 				do{
 					read.seekg(0);
 					getline(read,linea);
-					cont++;
+					//cont++;
 					while(!read.eof())
 					{
 
