@@ -135,8 +135,9 @@ int main() {
 				opcion=4;
 				break;
 			case 4:
+				cout<<"Saliendo..."<<endl;
 				return 0;
-				break;
+				//break;
 			}
 
 		}while(opcion!=4 && vuelve==1);
@@ -182,9 +183,10 @@ void menu_admin(){
 	string inscrr;
 	//int inscr=0;
 	//float stats=0.0;
-	string dni, pass;
+	string dni="error";
+	string pass;
 	string userUco;
-	string fechaNac;
+	string fechaNac="error";
 	string pass2;
 	system(CLEAR);
 	cout<<"\t\t\t***BIENVENIDO AL MENU DE ADMINISTRADOR***\t\t\t\n\n";
@@ -253,6 +255,7 @@ void menu_admin(){
 			enter();
 			break;
 		case 3:
+
 			fflush(stdin);
 			cout<<"\t Registro de usuario \t\n\n";
 			//fflush(stdin);
@@ -334,6 +337,7 @@ void menu_visitante(){
 			cout<<"Para inscribirse a un curso, ha de tener una cuenta creada."<<endl;
 			break;
 		case 3:
+			cout<<"Saliendo..."<<endl;
 			return;
 			break;
 		}
@@ -376,6 +380,7 @@ void menu_alumno(string &dni){
 			enter();
 			break;
 		case 4:
+			cout<<"Saliendo..."<<endl;
 			return;
 			break;
 		}

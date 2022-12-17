@@ -45,7 +45,6 @@
 					</folderInfo>
 					<sourceEntries>
 						<entry excluding="test|mockator" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED|EXPORTED" kind="sourcePath" name="mockator"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -95,7 +94,6 @@
 					</folderInfo>
 					<sourceEntries>
 						<entry excluding="test|mockator" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED|EXPORTED" kind="sourcePath" name="mockator"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

@@ -5,12 +5,20 @@ is
 descripcion
 0
 20
-3
+1
 2
-bbdd
-18/04/2020
-19/04/2020
-desc
+BASE DE DATOS
+15/09/2022
+23/12/2022
+descripcion
 0
-20
+250
+0
 3
+POO
+04/08/2021
+12/12/2022
+descrip
+0
+400
+0

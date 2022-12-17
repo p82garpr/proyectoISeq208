@@ -194,7 +194,7 @@ void curso::listarCursos(){
 	vacio.clear();
 	string aux;
 	ifstream read;
-	read.open("Cursos.txt",ios::in);
+	read.open("cursos.txt",ios::in);
 			if(read.is_open()){
 				cout<<"\t\t***LISTADO DE TODOS LOS CURSOS DISPONIBLES***\t\t\n";
 				getline(read,aux);
@@ -229,6 +229,7 @@ void curso::listarCursos(){
 			cout<<"Hay un total de "<<i<<" cursos"<<endl;
 			numero_cursos=i;
 }
+
 
 bool curso::buscar_curso(string id){
 	curso busca;

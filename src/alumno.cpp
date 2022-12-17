@@ -460,6 +460,7 @@ bool alumno::inscribir_curso(string IDCurso, string DNI){
 				encontrado=false;
 			}
 
+
 		}while(encontrado==true);
 		escritura<<DNI<<"\n";
 
@@ -470,7 +471,7 @@ bool alumno::inscribir_curso(string IDCurso, string DNI){
 			string x="";
 			x=IDCurso+",";
 			setListaCursos(x);
-			cout<<x<<endl;
+			//cout<<x<<endl;
 			//escritura2.close();
 			modificar_listacursos(x,DNI);
 			//escritura2<<getListaCursos();
@@ -524,17 +525,17 @@ void alumno::modificar_listacursos(string cadaux, string Dni){
 
 		while(!is.eof()){
 			getline(is,dniaux);
-			cout<<dniaux<<endl;
+			//cout<<dniaux<<endl;
 			getline(is,nombre);
-			cout<<nombre<<endl;
+			//cout<<nombre<<endl;
 			getline(is,fechaNac);
-			cout<<fechaNac<<endl;
+			//cout<<fechaNac<<endl;
 			getline(is,usuarioUCO);
-			cout<<usuarioUCO<<endl;
+			//cout<<usuarioUCO<<endl;
 			getline(is,pass);
-			cout<<pass<<endl;
+			//cout<<pass<<endl;
 			getline(is,listacursos);
-			cout<<listacursos<<endl;
+			//cout<<listacursos<<endl;
 
 			cont++;
 			if(dniaux==Dni){
