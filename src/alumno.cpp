@@ -129,7 +129,7 @@ bool alumno::inicio_sesion_bbdd(string dni, string pass){
 	//cout<<"Introduce DNI: ";
 	//getline(cin,dni);
 	string auxDNI=dni;
-	//cout<<"Introduce contrasenia: ";
+	//cout<<"Introduce contraseña: ";
 	//getline(cin,pass);
 	string passAux=pass;
 	ifstream read;
@@ -161,11 +161,11 @@ bool alumno::inicio_sesion_bbdd(string dni, string pass){
 			if(dni==auxDNI){
 				encontrado=true;
 				if(pass!=passAux){
-					cout<<"Contrasenia Incorrecta, saliendo.."<<endl;
+					cout<<"Contraseña Incorrecta, saliendo.."<<endl;
 					read.close();
 					return 0;
 				}else{
-					cout<<"Contrasenia validada, bienvenido "<<usuarioUCO<<endl;
+					cout<<"Contraseña validada, bienvenido "<<usuarioUCO<<endl;
 					read.close();
 					return 1;
 					}

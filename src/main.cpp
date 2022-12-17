@@ -20,6 +20,7 @@
 #include <list>
 #include <conio.h>
 #include <stdlib.h>
+#include <clocale>
 #include "usuario.h"
 #include "curso.h"
 #include "alumno.h"
@@ -33,6 +34,7 @@ void menu_visitante();
 void menu_alumno(string &dni);
 
 int main() {
+	setlocale(LC_CTYPE,"Spanish");
 	curso c;
 	alumno a;
 	//visitante v;
@@ -46,12 +48,17 @@ int main() {
 		do{
 			system(CLEAR);
 			cout<<"\t\t\t****Bienvenido al sistema, seleccione una opcion****\t\t\t\n\n"<<endl;
-			cout<<"1. Registrarme"<<endl;
+			cout<<"1. Registro"<<endl;
 			cout<<"2. Iniciar sesion"<<endl;
 			cout<<"3. Entrar como visitante"<<endl;
 			cout<<"4. Salir del sistema"<<endl;
 			cin>>opcion;
 			switch(opcion){
+				default:
+					cout<<"Introduzca una opción válida (1-4)"<<endl;
+					fflush(stdin);
+					break;
+
 				case 1:
 					fflush(stdin);
 					cout<<"\t Registro de usuario \t\n\n";
@@ -102,6 +109,7 @@ int main() {
 					a.registro(a);
 					dni="error";
 					fechaNac="error";
+					fflush(stdin);
 					enter();
 					vuelve=1;
 
@@ -151,11 +159,13 @@ int main() {
 				system(CLEAR);
 				menu_visitante();
 				//cout<<"VISITANTE"<<endl;
-			}else{
+			}else if (modo==1){
 				//menu_alumno();
 				system(CLEAR);
 				menu_alumno(dni);
 				//cout<<"ALUMNO"<<endl;
+			}else{
+				cout<<"Error del sistema"<<endl;
 			}
 
 	return 0;
@@ -165,6 +175,7 @@ int main() {
 void enter(){
 	cout<<"Presiona Enter para continuar...";
 	getchar();
+	//system(CLEAR);
 }
 
 void menu_admin(){
@@ -189,7 +200,7 @@ void menu_admin(){
 	system(CLEAR);
 	cout<<"\t\t\t***BIENVENIDO AL MENU DE ADMINISTRADOR***\t\t\t\n\n";
 	do{
-		system(CLEAR);
+		//system(CLEAR);
 		cout<<"\n1. Crear curso"<<endl;
 		cout<<"2. Listar cursos"<<endl;
 		cout<<"3. Crear usuario"<<endl;
@@ -245,6 +256,7 @@ void menu_admin(){
 			c.volcar_curso(c);
 			fechaIni="error";
 			fechaFin="error";
+			fflush(stdin);
 			enter();
 			break;
 		case 2:
@@ -326,9 +338,12 @@ void menu_visitante(){
 		switch(opc){
 		default:
 			cout<<"\nIntroduce una opcion valida(1-3)\n"<<endl;
+			fflush(stdin);
 			break;
 		case 1:
 			c.listarCursos();
+			fflush(stdin);
+			enter();
 			break;
 		case 2:
 			cout<<"Para inscribirse a un curso, ha de tener una cuenta creada."<<endl;
@@ -348,7 +363,7 @@ void menu_alumno(string &dni){
 	system(CLEAR);
 	cout<<"\t\t\t***BIENVENIDO AL MENU DE ALUMNO***\t\t\t\n\n";
 	do{
-		system(CLEAR);
+		//system(CLEAR);
 		cout<<"\n1. Listar cursos."<<endl;
 		cout<<"2. Inscribir curso."<<endl;
 		cout<<"3. Ver mi Perfil"<<endl;
@@ -359,15 +374,25 @@ void menu_alumno(string &dni){
 			cout<<"\nIntroduce una opcion valida(1-3)\n"<<endl;
 			break;
 		case 1:
-			system(CLEAR);
+			//system(CLEAR);
 			c.listarCursos();
+			fflush(stdin);
+			enter();
 			break;
 		case 2:
 			system(CLEAR);
+			c.listarCursos();
 			fflush(stdin);
 			cout<<"Introduce el ID del curso al que te quieres inscribir: "<<endl;
 			cin>>aux;
-			a.inscribir_curso(aux, dni);
+			if(a.inscribir_curso(aux, dni)){
+				system(CLEAR);
+				cout<<"Te has inscrito corretcamente"<<endl;
+			}else{
+				cout<<"No has podido inscribirte"<<endl;
+			}
+
+
 			break;
 		case 3:
 			fflush(stdin);
