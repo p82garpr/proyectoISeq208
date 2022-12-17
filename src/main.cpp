@@ -46,7 +46,7 @@ int main() {
 		int opcion,modo,vuelve;
 		system(CLEAR);
 		do{
-			system(CLEAR);
+			//system(CLEAR);
 			cout<<"\t\t\t****Bienvenido al sistema, seleccione una opcion****\t\t\t\n\n"<<endl;
 			cout<<"1. Registro"<<endl;
 			cout<<"2. Iniciar sesion"<<endl;
@@ -121,7 +121,7 @@ int main() {
 				cout<<"Introduce el DNI: "<<endl;
 				cin>>dni;
 				fflush(stdin);
-				cout<<"Introduce la contrasena: "<<endl;
+				cout<<"Introduce la contraseña: "<<endl;
 				cin>>pass;
 				if(dni=="root" && pass=="root"){
 					//MENU DE ADMINISTRADOR
@@ -133,6 +133,7 @@ int main() {
 						modo=1;
 						vuelve =0;
 					}else{
+						//cout<<"Contraseña incorrecta"<<endl;
 						vuelve =1;
 						//return 0;
 					}
