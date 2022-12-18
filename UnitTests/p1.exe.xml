@@ -1,0 +1,26 @@
+<testsuites>
+	<testsuite name="AllTests" tests="6">
+		<testcase classname="AllTests" name="testInicioSesion1"/>
+		<testcase classname="AllTests" name="testInicioSesion2"/>
+		<testcase classname="AllTests" name="testvolcarcurso">
+			<failure message="..\src\Test.cpp:68 testvolcarcurso: fileCourseWritten == true">
+testvolcarcurso: fileCourseWritten == true
+			</failure>
+		</testcase>
+		<testcase classname="AllTests" name="testbuscarcurso">
+			<failure message="..\src\Test.cpp:103 testbuscarcurso: fileCourseWritten == true">
+testbuscarcurso: fileCourseWritten == true
+			</failure>
+		</testcase>
+		<testcase classname="AllTests" name="testRegistro">
+			<failure message="..\src\Test.cpp:121 testRegistro: result==true">
+testRegistro: result==true
+			</failure>
+		</testcase>
+		<testcase classname="AllTests" name="testInscribirCurso">
+			<failure message="..\src\Test.cpp:160 testInscribirCurso: result==true">
+testInscribirCurso: result==true
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

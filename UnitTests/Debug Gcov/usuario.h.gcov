@@ -1,0 +1,65 @@
+        -:    0:Source:../src/usuario.h
+        -:    0:Graph:C:/Users/Isaac/Desktop/GINF/2º/IS/p1/Debug Gcov/src/Test.gcno
+        -:    0:Data:C:/Users/Isaac/Desktop/GINF/2º/IS/p1/Debug Gcov/src/Test.gcda
+        -:    0:Runs:1
+        -:    1:/*
+        -:    2: * usuario.h
+        -:    3: *
+        -:    4: *  Created on: 29 nov 2022
+        -:    5: *      Author: Lau
+        -:    6: */
+        -:    7:
+        -:    8:#ifndef USUARIO_H
+        -:    9:#define USUARIO_H
+        -:   10:#include <iostream>
+        -:   11:
+        -:   12:using namespace std;
+        -:   13:
+        -:   14:class usuario {
+        -:   15:private:
+        -:   16:	string usuario_uco_;
+        -:   17:	string nombre_completo_;
+        -:   18:	string fecha_nacimiento_;
+        -:   19:	string dni_;
+        -:   20:	string contrasena_;
+        -:   21:
+        -:   22:public:
+        -:   23:	usuario(string usuario_uco_,
+        -:   24:	string nombre_completo_,
+        -:   25:	string fecha_nacimiento_,
+        -:   26:	string dni_,
+        -:   27:	string contrasena_);
+        -:   28:
+        -:   29:
+        -:   30:	//GETTERS Y SETTERS
+        -:   31:
+function _ZNK7usuario13getContrasenaB5cxx11Ev called 7 returned 100% blocks executed 100%
+        7:   32:	inline const string& getContrasena() const { return contrasena_;}
+        -:   33:
+function _ZN7usuario13setContrasenaERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 5 returned 100% blocks executed 100%
+        5:   34:	inline void setContrasena(const string &contrasena) {contrasena_ = contrasena;}
+call    0 returned 100%
+        -:   35:
+function _ZNK7usuario6getDniB5cxx11Ev called 11 returned 100% blocks executed 100%
+       11:   36:	inline const string& getDni() const {return dni_;}
+        -:   37:
+        -:   38:	void setDni(const string &dni);
+        -:   39:
+        -:   40:	inline const string& getFechaNacimiento() const {return fecha_nacimiento_;}
+        -:   41:
+        -:   42:	void setFechaNacimiento(const string &fechaNacimiento);
+        -:   43:
+        -:   44:	inline const string& getNombreCompleto() const {return nombre_completo_;}
+        -:   45:
+        -:   46:	inline void setNombreCompleto(const string &nombreCompleto) {nombre_completo_ = nombreCompleto;}
+        -:   47:
+        -:   48:	inline const string& getUsuarioUco() const {return usuario_uco_;}
+        -:   49:
+        -:   50:	inline void setUsuarioUco(const string &usuarioUco) {usuario_uco_ = usuarioUco;}
+        -:   51:
+        -:   52:	//void iniciar_sesion();
+        -:   53:	bool iniciar_sesion(string id, string pass);
+        -:   54:	//bool iniciar_sesion(string usuario, string pass);
+        -:   55:};
+        -:   56:
+        -:   57:#endif /* USUARIO_H_ */

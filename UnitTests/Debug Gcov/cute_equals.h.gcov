@@ -1,0 +1,293 @@
+        -:    0:Source:C:/Users/Isaac/Desktop/GINF/2º/IS/p1/cute/cute_equals.h
+        -:    0:Graph:C:/Users/Isaac/Desktop/GINF/2º/IS/p1/Debug Gcov/src/Test.gcno
+        -:    0:Data:C:/Users/Isaac/Desktop/GINF/2º/IS/p1/Debug Gcov/src/Test.gcda
+        -:    0:Runs:1
+        -:    1:/*********************************************************************************
+        -:    2: * This file is part of CUTE.
+        -:    3: *
+        -:    4: * Copyright (c) 2007-2018 Peter Sommerlad, Emanuel Graf, IFS
+        -:    5: *
+        -:    6: * Permission is hereby granted, free of charge, to any person obtaining a copy
+        -:    7: * of this software and associated documentation files (the "Software"), to deal
+        -:    8: * in the Software without restriction, including without limitation the rights
+        -:    9: * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        -:   10: * copies of the Software, and to permit persons to whom the Software is
+        -:   11: * furnished to do so, subject to the following conditions:
+        -:   12: *
+        -:   13: * The above copyright notice and this permission notice shall be included in all
+        -:   14: * copies or substantial portions of the Software.
+        -:   15: *
+        -:   16: * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        -:   17: * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        -:   18: * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        -:   19: * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        -:   20: * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        -:   21: * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        -:   22: * SOFTWARE.
+        -:   23: *
+        -:   24: *********************************************************************************/
+        -:   25:
+        -:   26:#ifndef CUTE_EQUALS_H_
+        -:   27:#define CUTE_EQUALS_H_
+        -:   28:#include "cute_base.h"
+        -:   29:#include "cute_diff_values.h"
+        -:   30:#include "cute_determine_traits.h"
+        -:   31:#include "cute_determine_version.h"
+        -:   32:#include "cute_deprecated.h"
+        -:   33:#include "cute_range.h"
+        -:   34:#include <cmath>
+        -:   35:#include <limits>
+        -:   36:#include <algorithm>
+        -:   37:#ifdef USE_STD11
+        -:   38:#include <tuple>
+        -:   39:#endif
+        -:   40:
+        -:   41:
+        -:   42:namespace cute {
+        -:   43:
+        -:   44:
+        -:   45:	namespace cute_do_equals {
+        -:   46:		// provide some template meta programming tricks to select "correct" comparison for floating point and integer types
+        -:   47:		template <typename ExpectedValue, typename ActualValue, typename DeltaValue>
+        -:   48:		bool do_equals_floating_with_delta(ExpectedValue const &expected
+        -:   49:				,ActualValue const &actual
+        -:   50:				,DeltaValue const &delta) {
+        -:   51:			using std::abs; // allow for user-defined types with abs overload
+        -:   52:#pragma GCC diagnostic push
+        -:   53:#pragma GCC diagnostic ignored "-Wconversion"
+        -:   54:			return bool(abs(delta) >= abs(expected-actual)); // Accommodate non-standard boolean type with explicit conversion
+        -:   55:#pragma GCC diagnostic pop
+        -:   56:		}
+        -:   57:		template <typename ExpectedValue, typename ActualValue, bool select_non_floating_point_type>
+    #####:   58:		bool do_equals_floating(ExpectedValue const &expected
+        -:   59:					,ActualValue const &actual,const impl_place_for_traits::integral_constant<bool, select_non_floating_point_type>&){
+    #####:   60:			return bool(expected==actual); // normal case for most types uses operator==!, accommodate non bool operator ==
+        -:   61:		}
+------------------
+_ZN4cute14cute_do_equals18do_equals_floatingIA5_cNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEELb0EEEbRKT_RKT0_RKSt17integral_constantIbXT1_EE:
+function _ZN4cute14cute_do_equals18do_equals_floatingIA5_cNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEELb0EEEbRKT_RKT0_RKSt17integral_constantIbXT1_EE called 0 returned 0% blocks executed 0%
+    #####:   58:		bool do_equals_floating(ExpectedValue const &expected
+        -:   59:					,ActualValue const &actual,const impl_place_for_traits::integral_constant<bool, select_non_floating_point_type>&){
+    #####:   60:			return bool(expected==actual); // normal case for most types uses operator==!, accommodate non bool operator ==
+call    0 never executed
+        -:   61:		}
+------------------
+_ZN4cute14cute_do_equals18do_equals_floatingIA3_cNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEELb0EEEbRKT_RKT0_RKSt17integral_constantIbXT1_EE:
+function _ZN4cute14cute_do_equals18do_equals_floatingIA3_cNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEELb0EEEbRKT_RKT0_RKSt17integral_constantIbXT1_EE called 0 returned 0% blocks executed 0%
+    #####:   58:		bool do_equals_floating(ExpectedValue const &expected
+        -:   59:					,ActualValue const &actual,const impl_place_for_traits::integral_constant<bool, select_non_floating_point_type>&){
+    #####:   60:			return bool(expected==actual); // normal case for most types uses operator==!, accommodate non bool operator ==
+call    0 never executed
+        -:   61:		}
+------------------
+        -:   62:		template <typename ExpectedValue, typename ActualValue>
+        -:   63:		bool do_equals_floating(ExpectedValue const &expected
+        -:   64:					,ActualValue const &actual,const impl_place_for_traits::true_type&){
+        -:   65:			const ExpectedValue automatic_delta_masking_last_significant_digit=(10*std::numeric_limits<ExpectedValue>::epsilon())*expected;
+        -:   66:			return do_equals_floating_with_delta(expected,actual,automatic_delta_masking_last_significant_digit);
+        -:   67:		}
+        -:   68:		// TMP-overload dispatch for floating points 2 bool params --> 4 overloads
+        -:   69:		template <typename ExpectedValue, typename ActualValue, bool select_non_integral_type>
+    #####:   70:		bool do_equals(ExpectedValue const &expected
+        -:   71:					,ActualValue const &actual
+        -:   72:					,const impl_place_for_traits::integral_constant<bool, select_non_integral_type>&/*exp_is_integral*/
+        -:   73:					,const impl_place_for_traits::integral_constant<bool, select_non_integral_type>&/*act_is_integral*/){
+    #####:   74:			return do_equals_floating(expected,actual,impl_place_for_traits::is_floating_point<ExpectedValue>());
+        -:   75:		}
+------------------
+_ZN4cute14cute_do_equals9do_equalsIA5_cNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEELb0EEEbRKT_RKT0_RKSt17integral_constantIbXT1_EESI_:
+function _ZN4cute14cute_do_equals9do_equalsIA5_cNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEELb0EEEbRKT_RKT0_RKSt17integral_constantIbXT1_EESI_ called 0 returned 0% blocks executed 0%
+    #####:   70:		bool do_equals(ExpectedValue const &expected
+        -:   71:					,ActualValue const &actual
+        -:   72:					,const impl_place_for_traits::integral_constant<bool, select_non_integral_type>&/*exp_is_integral*/
+        -:   73:					,const impl_place_for_traits::integral_constant<bool, select_non_integral_type>&/*act_is_integral*/){
+    #####:   74:			return do_equals_floating(expected,actual,impl_place_for_traits::is_floating_point<ExpectedValue>());
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:   75:		}
+------------------
+_ZN4cute14cute_do_equals9do_equalsIA3_cNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEELb0EEEbRKT_RKT0_RKSt17integral_constantIbXT1_EESI_:
+function _ZN4cute14cute_do_equals9do_equalsIA3_cNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEELb0EEEbRKT_RKT0_RKSt17integral_constantIbXT1_EESI_ called 0 returned 0% blocks executed 0%
+    #####:   70:		bool do_equals(ExpectedValue const &expected
+        -:   71:					,ActualValue const &actual
+        -:   72:					,const impl_place_for_traits::integral_constant<bool, select_non_integral_type>&/*exp_is_integral*/
+        -:   73:					,const impl_place_for_traits::integral_constant<bool, select_non_integral_type>&/*act_is_integral*/){
+    #####:   74:			return do_equals_floating(expected,actual,impl_place_for_traits::is_floating_point<ExpectedValue>());
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:   75:		}
+------------------
+        -:   76:		template <typename ExpectedValue, typename ActualValue, bool select_non_integral_type>
+        -:   77:		bool do_equals(ExpectedValue const &expected
+        -:   78:					,ActualValue const &actual
+        -:   79:					,const impl_place_for_traits::false_type&,const impl_place_for_traits::false_type&){
+        -:   80:			return do_equals_floating(expected,actual,impl_place_for_traits::is_floating_point<ActualValue>());
+        -:   81:		}
+        -:   82:		template <typename ExpectedValue, typename ActualValue, bool select_non_integral_type>
+        -:   83:		bool do_equals(ExpectedValue const &expected
+        -:   84:					,ActualValue const &actual
+        -:   85:					,const impl_place_for_traits::integral_constant<bool, select_non_integral_type>&/*exp_is_integral*/
+        -:   86:					,const impl_place_for_traits::true_type&){
+        -:   87:			return do_equals_floating(expected,actual,impl_place_for_traits::is_floating_point<ExpectedValue>());
+        -:   88:		}
+        -:   89:		template <typename ExpectedValue, typename ActualValue, bool select_non_integral_type>
+        -:   90:		bool do_equals(ExpectedValue const &expected
+        -:   91:					,ActualValue const &actual
+        -:   92:					,const impl_place_for_traits::true_type&,const impl_place_for_traits::integral_constant<bool, select_non_integral_type>&/*act_is_integral*/){
+        -:   93:			return do_equals_floating(expected,actual,impl_place_for_traits::is_floating_point<ActualValue>());
+        -:   94:		}
+        -:   95:#ifdef USE_STD11
+        -:   96:		template <bool select_non_floating_point_type, typename ...ExpectedTypes, typename ...ActualTypes>
+        -:   97:		bool do_equals(std::tuple<ExpectedTypes...> const &expected
+        -:   98:					,std::tuple<ActualTypes...> const &actual,const std::integral_constant<bool, select_non_floating_point_type>&){
+        -:   99:					return expected==actual;
+        -:  100:		}
+        -:  101:#endif
+        -:  102:		// can I get rid of the following complexity by doing a do_equals_integral
+        -:  103:		// parameterized by is_signed<ExpectedValue>==is_signed<ActualValue> or nofBits<A> < nofBits<B>
+        -:  104:
+        -:  105:
+        -:  106:		// this is an optimization for avoiding if and sign-extend overhead if both int types are the same as below
+        -:  107:		template <typename IntType>
+function _ZN4cute14cute_do_equals9do_equalsIiEEbRKT_S4_RKSt17integral_constantIbLb1EES8_ called 0 returned 0% blocks executed 0%
+    #####:  108:		bool do_equals(IntType const &expected
+        -:  109:					,IntType const &actual
+        -:  110:					,const impl_place_for_traits::true_type&,const impl_place_for_traits::true_type&){
+    #####:  111:			return expected==actual;
+        -:  112:		}
+        -:  113:		// bool cannot be made signed, therefore we need the following three overloads, also to avoid ambiguity
+        -:  114:		template <typename IntType>
+        -:  115:		bool do_equals(bool const &expected
+        -:  116:					,IntType const &actual
+        -:  117:					,const impl_place_for_traits::true_type&,const impl_place_for_traits::true_type&){
+        -:  118:			return expected== !(!actual); // warning from VS
+        -:  119:		}
+        -:  120:		template <typename IntType>
+        -:  121:		bool do_equals(IntType const &expected
+        -:  122:					,bool const &actual
+        -:  123:					,const impl_place_for_traits::true_type&,const impl_place_for_traits::true_type&){
+        -:  124:			return !(!expected)==actual; // warning from VS
+        -:  125:		}
+        -:  126:		// do not forget the inline on a non-template overload!
+        -:  127:		// this overload is needed to actually avoid ambiguity for comparing bool==bool as a best match
+        -:  128:		inline bool do_equals(bool const &expected
+        -:  129:				      ,bool const &actual
+        -:  130:				      , const impl_place_for_traits::true_type&,const impl_place_for_traits::true_type&){
+        -:  131:			return expected==actual;
+        -:  132:		}
+        -:  133:		// overload for char const *, my test case failed because VC++ doesn't use string constant folding like g++/clang
+        -:  134:		// a feature where we should do string comparison
+        -:  135:		inline bool do_equals(char const *const &expected
+        -:  136:				      ,char const *const &actual
+        -:  137:				      , const impl_place_for_traits::false_type&,const impl_place_for_traits::false_type&){
+        -:  138:			return std::string(expected) == actual;
+        -:  139:		}
+        -:  140:		template <typename IntegralType>
+        -:  141:		size_t nof_bits(IntegralType const &){
+        -:  142:			return std::numeric_limits<IntegralType>::digits;
+        -:  143:		}
+        -:  144:#if defined(USE_STD11)||defined(USE_TR1)
+        -:  145:		template <typename ExpectedValue, typename ActualValue>
+        -:  146:		bool do_equals_integral(ExpectedValue const &expected
+        -:  147:				,ActualValue const &actual
+        -:  148:				,const impl_place_for_traits::true_type&,const impl_place_for_traits::true_type&){
+        -:  149:			if (nof_bits(expected) < nof_bits(actual))
+        -:  150:						return static_cast<ActualValue>(expected) == actual;
+        -:  151:			else
+        -:  152:						return expected == static_cast<ExpectedValue>(actual);
+        -:  153:			return false;
+        -:  154:		}
+        -:  155:		template <typename ExpectedValue, typename ActualValue>
+        -:  156:		bool do_equals_integral(ExpectedValue const &expected
+        -:  157:				,ActualValue const &actual
+        -:  158:				,const impl_place_for_traits::false_type&,const impl_place_for_traits::true_type&){
+        -:  159://TODO complicated case, one signed one unsigned type. since it is about equality casting to the longer should work?
+        -:  160:			if (sizeof(ExpectedValue) >	sizeof(ActualValue))
+        -:  161:				return expected==static_cast<ExpectedValue>(actual);
+        -:  162:			else
+        -:  163:				return static_cast<ActualValue>(expected) == actual;
+        -:  164:		}
+        -:  165:		template <typename ExpectedValue, typename ActualValue>
+        -:  166:		bool do_equals_integral(ExpectedValue const &expected
+        -:  167:				,ActualValue const &actual
+        -:  168:				,const impl_place_for_traits::true_type&,const impl_place_for_traits::false_type&){
+        -:  169://TODO
+        -:  170:			if (sizeof(ExpectedValue) < sizeof(ActualValue))
+        -:  171:				return static_cast<ActualValue>(expected)==	actual;
+        -:  172:			else
+        -:  173:				return expected == static_cast<ExpectedValue>(actual);
+        -:  174:		}
+        -:  175:		template <typename ExpectedValue, typename ActualValue>
+        -:  176:		bool do_equals_integral(ExpectedValue const &expected
+        -:  177:				,ActualValue const &actual
+        -:  178:				,const impl_place_for_traits::false_type&,const impl_place_for_traits::false_type&){
+        -:  179:			if (nof_bits(expected) < nof_bits(actual))
+        -:  180:						return static_cast<ActualValue>(expected) == actual;
+        -:  181:			else
+        -:  182:						return expected == static_cast<ExpectedValue>(actual);
+        -:  183:			return false;
+        -:  184:		}
+        -:  185:#endif
+        -:  186:		// will not work if either type is bool, therefore the overloads above.
+        -:  187:		template <typename ExpectedValue, typename ActualValue>
+        -:  188:		bool do_equals(ExpectedValue const &expected
+        -:  189:					,ActualValue const &actual
+        -:  190:					,const impl_place_for_traits::true_type&,const impl_place_for_traits::true_type&){
+        -:  191:#if defined(USE_STD11) || defined(USE_TR1)
+        -:  192:			return do_equals_integral(expected,actual,
+        -:  193:					impl_place_for_traits::is_signed<ExpectedValue>()
+        -:  194:					,impl_place_for_traits::is_signed<ActualValue>());
+        -:  195:#else
+        -:  196://TODO: replace the following code with a dispatcher on signed/unsigned
+        -:  197:			typedef typename impl_place_for_traits::make_signed<ExpectedValue>::type ex_s;
+        -:  198:			typedef typename impl_place_for_traits::make_signed<ActualValue>::type ac_s;
+        -:  199:				// need to sign extend with the longer type, should work...
+        -:  200:			    // might be done through more template meta prog tricks....but...
+        -:  201:				if (nof_bits(expected) < nof_bits(actual))
+        -:  202:					return static_cast<ac_s>(expected) == static_cast<ac_s>(actual);
+        -:  203:				else
+        -:  204:					return static_cast<ex_s>(expected) == static_cast<ex_s>(actual);
+        -:  205:#endif
+        -:  206:		}
+        -:  207:	} // namespace equals_impl
+        -:  208:	template <typename ExpectedValue, typename ActualValue>
+    #####:  209:	void assert_equal(ExpectedValue const &expected
+        -:  210:				,ActualValue const &actual
+        -:  211:				,std::string const &msg
+        -:  212:				,char const *file
+        -:  213:				,int line) {
+        -:  214:		// unfortunately there is no is_integral_but_not_bool_or_enum
+        -:  215:		typedef typename impl_place_for_traits::is_integral<ExpectedValue> exp_integral;
+        -:  216:		typedef typename impl_place_for_traits::is_integral<ActualValue> act_integral;
+    #####:  217:		if (cute_do_equals::do_equals(expected,actual,exp_integral(),act_integral()))
+    #####:  218:			return;
+    #####:  219:		throw test_failure(msg + diff_values(expected,actual),file,line);
+        -:  220:	}
+        -:  221:
+        -:  222:	template <typename ExpectedValue, typename ActualValue, typename DeltaValue>
+        -:  223:	void assert_equal_delta(ExpectedValue const &expected
+        -:  224:				,ActualValue const &actual
+        -:  225:				,DeltaValue const &delta
+        -:  226:				,std::string const &msg
+        -:  227:				,char const *file
+        -:  228:				,int line) {
+        -:  229:		if (cute_do_equals::do_equals_floating_with_delta(expected,actual,delta)) return;
+        -:  230:		throw test_failure(msg + diff_values(expected,actual),file,line);
+        -:  231:	}
+        -:  232:
+        -:  233:}
+        -:  234:
+        -:  235:#define ASSERT_EQUALM(msg,expected,actual) cute::assert_equal((expected),(actual),\
+        -:  236:		CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__)
+        -:  237:#define ASSERT_EQUAL(expected,actual) ASSERT_EQUALM(#expected " == " #actual, (expected),(actual))
+        -:  238:#define ASSERT_EQUAL_DELTAM(msg,expected,actual,delta) cute::assert_equal_delta((expected),(actual),(delta),\
+        -:  239:		CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__)
+        -:  240:#define ASSERT_EQUAL_DELTA(expected,actual,delta) ASSERT_EQUAL_DELTAM(#expected " == " #actual " with error " #delta  ,(expected),(actual),(delta))
+        -:  241:
+        -:  242:DEPRECATE(ASSERT_EQUAL_RANGES_M, ASSERT_EQUAL_RANGESM)
+        -:  243:#define ASSERT_EQUAL_RANGES_M(msg,expbeg,expend,actbeg,actend) DEPRECATED(ASSERT_EQUAL_RANGES_M), ASSERT_EQUALM(msg,cute::make_range(expbeg,expend),cute::make_range(actbeg,actend))
+        -:  244:#define ASSERT_EQUAL_RANGESM(msg,expbeg,expend,actbeg,actend) ASSERT_EQUALM(msg,cute::make_range(expbeg,expend),cute::make_range(actbeg,actend))
+        -:  245:#define ASSERT_EQUAL_RANGES(expbeg,expend,actbeg,actend) ASSERT_EQUAL_RANGESM("range{" #expbeg "," #expend "} == range{" #actbeg "," #actend "}",expbeg,expend,actbeg,actend)
+        -:  246:#endif /*CUTE_EQUALS_H_*/

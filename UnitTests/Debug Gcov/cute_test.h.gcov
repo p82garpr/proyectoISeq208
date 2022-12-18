@@ -1,0 +1,74 @@
+        -:    0:Source:C:/Users/Isaac/Desktop/GINF/2º/IS/p1/cute/cute_test.h
+        -:    0:Graph:C:/Users/Isaac/Desktop/GINF/2º/IS/p1/Debug Gcov/src/Test.gcno
+        -:    0:Data:C:/Users/Isaac/Desktop/GINF/2º/IS/p1/Debug Gcov/src/Test.gcda
+        -:    0:Runs:1
+        -:    1:/*********************************************************************************
+        -:    2: * This file is part of CUTE.
+        -:    3: *
+        -:    4: * Copyright (c) 2007-2018 Peter Sommerlad, Emanuel Graf, IFS
+        -:    5: *
+        -:    6: * Permission is hereby granted, free of charge, to any person obtaining a copy
+        -:    7: * of this software and associated documentation files (the "Software"), to deal
+        -:    8: * in the Software without restriction, including without limitation the rights
+        -:    9: * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        -:   10: * copies of the Software, and to permit persons to whom the Software is
+        -:   11: * furnished to do so, subject to the following conditions:
+        -:   12: *
+        -:   13: * The above copyright notice and this permission notice shall be included in all
+        -:   14: * copies or substantial portions of the Software.
+        -:   15: *
+        -:   16: * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        -:   17: * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        -:   18: * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        -:   19: * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        -:   20: * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        -:   21: * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        -:   22: * SOFTWARE.
+        -:   23: *
+        -:   24: *********************************************************************************/
+        -:   25:
+        -:   26:#ifndef CUTE_TEST_H_
+        -:   27:#define CUTE_TEST_H_
+        -:   28:
+        -:   29:#include "cute_determine_library.h"
+        -:   30:#include "cute_demangle.h"
+        -:   31:
+        -:   32:// make plain functions as tests more 'cute':
+        -:   33:namespace cute {
+        -:   34:
+        -:   35:	struct test{
+function _ZNK4cute4testclEv called 6 returned 33% blocks executed 100%
+        6:   36:		void operator()()const{ theTest(); }
+call    0 returned 33%
+function _ZNK4cute4test4nameB5cxx11Ev called 30 returned 100% blocks executed 100%
+       30:   37:		std::string name()const{ return name_;}
+call    0 returned 100%
+        -:   38:
+        -:   39:
+        -:   40:		// (real) functor types can (almost) spell their name
+        -:   41:		// but a name can also be given explicitely, e.g. for CUTE() macro
+        -:   42:		// for simple test functions
+        -:   43:		template <typename VoidFunctor>
+function _ZN4cute4testC1IPFvvEEERKT_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 6 returned 100% blocks executed 80%
+        6:   44:		test(VoidFunctor const &t, std::string sname = demangle(typeid(VoidFunctor).name()))
+        6:   45:		:name_(sname),theTest(t){}
+call    0 returned 100%
+call    1 returned 100%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0% (throw)
+call    4 never executed
+        -:   46:		// separate overload to allow nicer C++11 initializers with {"name",lambda}
+        -:   47:		template <typename VoidFunctor>
+        -:   48:		test(std::string sname,VoidFunctor const &t)
+        -:   49:		:name_(sname),theTest(t){}
+        -:   50:
+        -:   51:	private:
+        -:   52:		std::string name_;
+        -:   53:		boost_or_tr1::function<void()> theTest;
+        -:   54:	};
+        -:   55:
+        -:   56:}
+        -:   57:
+        -:   58:#define CUTE(name) cute::test((&name),(#name))
+        -:   59:
+        -:   60:#endif /*CUTE_TEST_H_*/

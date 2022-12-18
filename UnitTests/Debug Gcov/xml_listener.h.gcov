@@ -1,0 +1,314 @@
+        -:    0:Source:C:/Users/Isaac/Desktop/GINF/2º/IS/p1/cute/xml_listener.h
+        -:    0:Graph:C:/Users/Isaac/Desktop/GINF/2º/IS/p1/Debug Gcov/src/Test.gcno
+        -:    0:Data:C:/Users/Isaac/Desktop/GINF/2º/IS/p1/Debug Gcov/src/Test.gcda
+        -:    0:Runs:1
+        -:    1:/*********************************************************************************
+        -:    2: * This file is part of CUTE.
+        -:    3: *
+        -:    4: * Copyright (c) 2007-2018 Peter Sommerlad, IFS
+        -:    5: *
+        -:    6: * Permission is hereby granted, free of charge, to any person obtaining a copy
+        -:    7: * of this software and associated documentation files (the "Software"), to deal
+        -:    8: * in the Software without restriction, including without limitation the rights
+        -:    9: * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        -:   10: * copies of the Software, and to permit persons to whom the Software is
+        -:   11: * furnished to do so, subject to the following conditions:
+        -:   12: *
+        -:   13: * The above copyright notice and this permission notice shall be included in all
+        -:   14: * copies or substantial portions of the Software.
+        -:   15: *
+        -:   16: * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        -:   17: * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        -:   18: * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        -:   19: * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        -:   20: * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        -:   21: * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        -:   22: * SOFTWARE.
+        -:   23: *
+        -:   24: *********************************************************************************/
+        -:   25:
+        -:   26:#ifndef XML_LISTENER_H_
+        -:   27:#define XML_LISTENER_H_
+        -:   28:
+        -:   29:#include "cute_listener.h"
+        -:   30:#include "cute_xml_file.h" // for convenience
+        -:   31:
+        -:   32:#include <ostream>
+        -:   33:
+        -:   34:namespace cute {
+        -:   35:	template <typename Listener=null_listener>
+        -:   36:	class xml_listener:public Listener
+        -:   37:	{
+        -:   38:	protected:
+function _ZN4cute12xml_listenerINS_12ide_listenerINS_13null_listenerEEEE14mask_xml_charsENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 19 returned 100% blocks executed 19%
+       19:   39:		std::string mask_xml_chars(std::string in){
+       19:   40:			std::string::size_type pos=0;
+      19*:   41:			while((pos=in.find_first_of("\x00\x01\x02\x03\x04\x05\x06\x07\x08\x0b\x0c\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\"&'<>", pos, 34))!=std::string::npos){
+call    0 returned 100%
+branch  1 taken 0% (fallthrough)
+branch  2 taken 100%
+    #####:   42:				switch(in[pos]){
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+branch  3 never executed
+branch  4 never executed
+branch  5 never executed
+branch  6 never executed
+    #####:   43:				case '&': in.replace(pos,1,"&amp;"); pos +=5; break;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   44:				case '<': in.replace(pos,1,"&lt;"); pos += 4; break;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   45:				case '>': in.replace(pos,1,"&gt;"); pos += 4; break;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   46:				case '"': in.replace(pos,1,"&quot;"); pos+=6; break;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   47:				case '\'':in.replace(pos,1,"&apos;"); pos+=6; break;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   48:				default:
+    #####:   49:					char c = in[pos];
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   50:					std::string replacement = "0x" + cute_to_string::hexit(c);
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+call    6 never executed
+call    7 never executed
+    #####:   51:					in.replace(pos, 1, replacement); pos += replacement.size(); break;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+        -:   52:					break;
+        -:   53:				}
+        -:   54:			}
+       19:   55:			return in;
+call    0 returned 100%
+        -:   56:		}
+        -:   57:		std::ostream &out;
+        -:   58:		std::string current_suite;
+        -:   59:	public:
+function _ZN4cute12xml_listenerINS_12ide_listenerINS_13null_listenerEEEEC1ERSo called 1 returned 100% blocks executed 83%
+        1:   60:		xml_listener(std::ostream &os):out(os) {
+call    0 returned 100%
+call    1 returned 100%
+call    2 never executed
+        1:   61:			out << "<testsuites>\n";
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        1:   62:		}
+function _ZN4cute12xml_listenerINS_12ide_listenerINS_13null_listenerEEEED1Ev called 1 returned 100% blocks executed 100%
+        1:   63:		~xml_listener(){
+        1:   64:			out << "</testsuites>\n"<< std::flush;
+call    0 returned 100%
+call    1 returned 100%
+        1:   65:		}
+call    0 returned 100%
+        -:   66:
+function _ZN4cute12xml_listenerINS_12ide_listenerINS_13null_listenerEEEE5beginERKSt6vectorINS_4testESaIS6_EEPKcj called 1 returned 100% blocks executed 76%
+        1:   67:		void begin(suite const &t,char const *info, size_t n_of_tests){
+        1:   68:			current_suite=mask_xml_chars(info);
+call    0 returned 100%
+call    1 returned 100%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0% (throw)
+call    4 returned 100%
+branch  5 taken 100% (fallthrough)
+branch  6 taken 0% (throw)
+call    7 returned 100%
+call    8 returned 100%
+call    9 returned 100%
+call   10 returned 100%
+call   11 never executed
+call   12 never executed
+        1:   69:			out << std::dec << "\t<testsuite name=\"" << current_suite << "\" tests=\"" << n_of_tests << "\">\n";
+call    0 returned 100%
+call    1 returned 100%
+call    2 returned 100%
+call    3 returned 100%
+call    4 returned 100%
+call    5 returned 100%
+        1:   70:			Listener::begin(t,info, n_of_tests);
+call    0 returned 100%
+        1:   71:		}
+function _ZN4cute12xml_listenerINS_12ide_listenerINS_13null_listenerEEEE3endERKSt6vectorINS_4testESaIS6_EEPKc called 1 returned 100% blocks executed 100%
+        1:   72:		void end(suite const &t, char const *info){
+        1:   73:			out << "\t</testsuite>\n";
+call    0 returned 100%
+        1:   74:			current_suite.clear();
+call    0 returned 100%
+        1:   75:			Listener::end(t,info);
+call    0 returned 100%
+        1:   76:		}
+function _ZN4cute12xml_listenerINS_12ide_listenerINS_13null_listenerEEEE5startERKNS_4testE called 6 returned 100% blocks executed 71%
+        6:   77:		void start(test const &t){
+        6:   78:			out << "\t\t<testcase classname=\""<<current_suite <<"\" name=\""<< mask_xml_chars(t.name())<<"\"";
+call    0 returned 100%
+call    1 returned 100%
+call    2 returned 100%
+call    3 returned 100%
+call    4 returned 100%
+branch  5 taken 100% (fallthrough)
+branch  6 taken 0% (throw)
+call    7 returned 100%
+branch  8 taken 100% (fallthrough)
+branch  9 taken 0% (throw)
+call   10 returned 100%
+branch 11 taken 100% (fallthrough)
+branch 12 taken 0% (throw)
+call   13 returned 100%
+call   14 returned 100%
+call   15 never executed
+call   16 never executed
+        6:   79:			Listener::start(t);
+call    0 returned 100%
+        6:   80:		}
+function _ZN4cute12xml_listenerINS_12ide_listenerINS_13null_listenerEEEE7successERKNS_4testEPKc called 2 returned 100% blocks executed 100%
+        2:   81:		void success(test const &t, char const *msg){
+        2:   82:			out << "/>\n";
+call    0 returned 100%
+        2:   83:			Listener::success(t,msg);
+call    0 returned 100%
+        2:   84:		}
+function _ZN4cute12xml_listenerINS_12ide_listenerINS_13null_listenerEEEE7failureERKNS_4testERKNS_12test_failureE called 4 returned 100% blocks executed 60%
+        4:   85:		void failure(test const &t,test_failure const &e){
+        8:   86:			out << std::dec <<  ">\n\t\t\t<failure message=\"" << mask_xml_chars(e.filename) << ":" << e.lineno << " "
+call    0 returned 100%
+call    1 returned 100%
+call    2 returned 100%
+call    3 returned 100%
+branch  4 taken 100% (fallthrough)
+branch  5 taken 0% (throw)
+call    6 returned 100%
+branch  7 taken 100% (fallthrough)
+branch  8 taken 0% (throw)
+call    9 returned 100%
+branch 10 taken 100% (fallthrough)
+branch 11 taken 0% (throw)
+call   12 returned 100%
+call   13 never executed
+call   14 never executed
+        4:   87:				<< mask_xml_chars(e.reason) << "\">\n"<<mask_xml_chars(e.reason)<<"\n\t\t\t</failure>\n\t\t</testcase>\n";
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+call    3 returned 100%
+branch  4 taken 100% (fallthrough)
+branch  5 taken 0% (throw)
+call    6 returned 100%
+branch  7 taken 100% (fallthrough)
+branch  8 taken 0% (throw)
+call    9 returned 100%
+branch 10 taken 100% (fallthrough)
+branch 11 taken 0% (throw)
+call   12 returned 100%
+branch 13 taken 100% (fallthrough)
+branch 14 taken 0% (throw)
+call   15 returned 100%
+branch 16 taken 100% (fallthrough)
+branch 17 taken 0% (throw)
+call   18 returned 100%
+branch 19 taken 100% (fallthrough)
+branch 20 taken 0% (throw)
+call   21 returned 100%
+branch 22 taken 100% (fallthrough)
+branch 23 taken 0% (throw)
+call   24 returned 100%
+branch 25 taken 100% (fallthrough)
+branch 26 taken 0% (throw)
+call   27 returned 100%
+branch 28 taken 100% (fallthrough)
+branch 29 taken 0% (throw)
+call   30 returned 100%
+call   31 returned 100%
+call   32 returned 100%
+call   33 returned 100%
+call   34 returned 100%
+call   35 never executed
+call   36 never executed
+call   37 never executed
+call   38 never executed
+        4:   88:			Listener::failure(t,e);
+call    0 returned 100%
+        4:   89:		}
+function _ZN4cute12xml_listenerINS_12ide_listenerINS_13null_listenerEEEE5errorERKNS_4testEPKc called 0 returned 0% blocks executed 0%
+    #####:   90:		void error(test const &t, char const *what){
+    #####:   91:			out << ">\n\t\t\t<error message=\"" << mask_xml_chars(t.name()) << " " << mask_xml_chars(what)
+        -:   92:				<< "\" type=\"unexpected exception\">\n"<<mask_xml_chars(what)
+    #####:   93:				<<"\n\t\t\t</error>\n\t\t</testcase>\n";
+call    0 never executed
+call    1 never executed
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+call    5 never executed
+branch  6 never executed
+branch  7 never executed
+call    8 never executed
+branch  9 never executed
+branch 10 never executed
+call   11 never executed
+call   12 never executed
+branch 13 never executed
+branch 14 never executed
+call   15 never executed
+branch 16 never executed
+branch 17 never executed
+call   18 never executed
+branch 19 never executed
+branch 20 never executed
+call   21 never executed
+branch 22 never executed
+branch 23 never executed
+call   24 never executed
+call   25 never executed
+branch 26 never executed
+branch 27 never executed
+call   28 never executed
+branch 29 never executed
+branch 30 never executed
+call   31 never executed
+branch 32 never executed
+branch 33 never executed
+call   34 never executed
+branch 35 never executed
+branch 36 never executed
+call   37 never executed
+call   38 never executed
+call   39 never executed
+call   40 never executed
+call   41 never executed
+call   42 never executed
+call   43 never executed
+call   44 never executed
+call   45 never executed
+call   46 never executed
+call   47 never executed
+call   48 never executed
+call   49 never executed
+call   50 never executed
+call   51 never executed
+call   52 never executed
+    #####:   94:			Listener::error(t,what);
+call    0 never executed
+    #####:   95:		}
+        -:   96:	};
+        -:   97:}
+        -:   98:
+        -:   99:#endif /*IDE_LISTENER_H_*/
