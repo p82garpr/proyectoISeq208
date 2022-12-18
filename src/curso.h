@@ -1,9 +1,3 @@
-/*
- * curso.h
- *
- *  Created on: 29 nov 2022
- *      Author: Isaac
- */
 
 #ifndef CURSO_H_
 #define CURSO_H_
@@ -13,7 +7,9 @@
 using namespace std;
 
 class curso {
+
 private:
+
 	int id_curso_;
 	string nombre_;
 	string fecha_ini_;
@@ -22,10 +18,11 @@ private:
 	float estadistica_alcance_;
 	int aforo_;
 	int alumnos_inscritos_;
+
 public:
 
-
 	curso(int id_curso=0, string nombre="empty", string fecha_ini="00/00/0000", string fecha_fin="00/00/0000", string descripcion="empty", float estadistica_alcance=0.0,int aforo=100, int alumnos_inscritos=0);
+
 	virtual ~curso();
 
 	//GETTERS Y SETTERS
@@ -60,24 +57,18 @@ public:
 
 	inline void setAforo(int aforo){aforo_=aforo;}
 	inline int getAforo(){return aforo_;}
-	curso getCurso(int id);
 
-	void mostrar_informacion(int id_curso);
+	void mostrar(curso c);
 
 	bool volcar_curso(curso c);
-	void agregarCurso();
-	void mostrar(curso c);
+
 	void listarCursos();
+
 	bool buscar_curso(string id);
+
 	int get_numero_cursos();
 
 
 };
-
-int getInt(string msj);
-string getString(string msj);
-//void limpiarLinea();
-
-
 
 #endif /* CURSO_H_ */

@@ -1,10 +1,3 @@
-/*
- * usuario.h
- *
- *  Created on: 29 nov 2022
- *      Author: Lau
- */
-
 #ifndef USUARIO_H
 #define USUARIO_H
 #include <iostream>
@@ -12,19 +5,20 @@
 using namespace std;
 
 class usuario {
-private:
-	string usuario_uco_;
-	string nombre_completo_;
-	string fecha_nacimiento_;
-	string dni_;
-	string contrasena_;
 
-public:
-	usuario(string usuario_uco_,
-	string nombre_completo_,
-	string fecha_nacimiento_,
-	string dni_,
-	string contrasena_);
+	private:
+		string usuario_uco_;
+		string nombre_completo_;
+		string fecha_nacimiento_;
+		string dni_;
+		string contrasena_;
+
+	public:
+		usuario(string usuario_uco_,
+				string nombre_completo_,
+				string fecha_nacimiento_,
+				string dni_,
+				string contrasena_);
 
 
 	//GETTERS Y SETTERS
@@ -49,9 +43,7 @@ public:
 
 	inline void setUsuarioUco(const string &usuarioUco) {usuario_uco_ = usuarioUco;}
 
-	//void iniciar_sesion();
 	bool iniciar_sesion(string id, string pass);
-	//bool iniciar_sesion(string usuario, string pass);
 };
 
 #endif /* USUARIO_H_ */
